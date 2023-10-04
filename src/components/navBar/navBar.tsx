@@ -7,7 +7,7 @@ const NavBar = ({}) => {
         <div className="mx-3 py-5 text-center">
             <div className="flex gap-3 flex-wrap justify-around">
                 <div className="bg-clip-text font-bold text-2xl">
-                    Automata solver
+                    Automaton solver
                 </div>
             </div>
         </div>

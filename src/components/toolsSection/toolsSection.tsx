@@ -5,7 +5,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 
 const ToolsSection = ({}) => {
     return (
-        <Paper elevation={4}>
+        <Paper elevation={4} className="h-full">
             <div className="p-6">
                 <Grid>
                     <Grid xs={12}>
