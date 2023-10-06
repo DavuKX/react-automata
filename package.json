@@ -15,6 +15,7 @@
     "@mui/material": "^5.14.11",
     "d3": "^5.16.0",
     "daisyui": "^3.8.3",
+    "i": "^0.3.7",
     "i18next-browser-languagedetector": "^7.1.0",
     "i18next-http-backend": "^2.2.2",
     "next": "^13.5.4",
