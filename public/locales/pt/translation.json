@@ -1,3 +1,6 @@
 {
-    "title": "Autômato Finito"
+    "title": "Autômato Finito",
+    "word": "Digite a palavra",
+    "run": "EXECUTAR AUTÔMATO",
+    "speed": "Velocidade do autômato"
 }

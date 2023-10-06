@@ -8,18 +8,8 @@ import '@/i18n'
 
 
 export default function Home() {
-    const {t, i18n} = useTranslation();
-    
-    const changeLanguage = (language) => {
-        i18n.changeLanguage(language);
-    } 
-
     return (
-        <div className='h-screen w-full'>
-            <button onClick={() => changeLanguage("en")}>EN</button>
-            <button onClick={() => changeLanguage("es")}>ES</button>
-            <button onClick={() => changeLanguage("pt")}>PT</button>
-            <hr />
+        <div className='h-screen w-full bg-white'>
             <NavBar />
             <Grid container spacing={2}>
                 <Grid xs={3}>
@@ -30,7 +20,6 @@ export default function Home() {
                 </Grid>
                 <Grid xs={12}></Grid>
             </Grid>
-            <div>{t("title")}</div>
         </div>
     )
 }

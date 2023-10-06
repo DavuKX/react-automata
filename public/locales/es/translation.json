@@ -1,3 +1,6 @@
 {
-    "title": "Autómata finito"
+    "title": "Autómata finito",
+    "word": "Ingresar palabra",
+    "run": "CORRER AUTÓMATA",
+    "speed": "Velocidad del autómata"
 }
