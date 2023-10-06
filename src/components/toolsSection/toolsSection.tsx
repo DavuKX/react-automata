@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {Box, Button, Paper, Slider, TextField, Typography} from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 
-const ToolsSection = ({}) => {
+const ToolsSection = ({ onWordsChanged }) => {
+    const handleInputChange = (e) => {
+        const words = e.target.value;
+        onWordsChanged(words);
+    };
+    
     return (
         <Paper elevation={4} className="h-full">
             <div className="p-6">
@@ -17,6 +22,7 @@ const ToolsSection = ({}) => {
                             fullWidth
                             minRows={4}
                             maxRows={10}
+                            onChange={handleInputChange}
                         />
                     </Grid>
                     <Grid>
