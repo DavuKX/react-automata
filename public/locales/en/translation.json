@@ -1,3 +1,6 @@
 {
-    "title": "Finite Automaton"
+    "title": "Finite Automaton",
+    "word": "Enter word",
+    "run": "RUN AUTOMATON",
+    "speed": "Automaton speed"
 }
