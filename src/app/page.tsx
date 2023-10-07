@@ -27,8 +27,6 @@ export default function Home() {
                 <Grid xs={3}>
                     <ToolsSection onWordsChanged={handleWordsChange} />
                     <ValidateSection inputString={inputWords}/>
-                    <button onClick={handleValidate}>Validate string</button>
-                    <div>{validationResult}</div>
                 </Grid>
                 <Grid xs={9}>
                     <AutomatonGraph />

@@ -2,5 +2,9 @@
     "title": "Finite Automaton",
     "word": "Enter word",
     "run": "RUN AUTOMATON",
-    "speed": "Automaton speed"
+    "speed": "Automaton speed",
+    "accept": "Word accepted",
+    "reject": "Word rejected",
+    "validate": "Validate word",
+    "validInput": "Enter a valid word."
 }

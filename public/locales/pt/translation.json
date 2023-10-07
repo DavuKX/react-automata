@@ -2,5 +2,9 @@
     "title": "Autômato Finito",
     "word": "Digite a palavra",
     "run": "EXECUTAR AUTÔMATO",
-    "speed": "Velocidade do autômato"
+    "speed": "Velocidade do autômato",
+    "accept": "Palavra aceita",
+    "reject": "Palavra rejeitada",
+    "validate": "Validar palavra",
+    "validInput": "Digite uma palavra válida."
 }
