@@ -2,7 +2,7 @@
 import React from 'react';
 // @ts-ignore
 import CytoscapeComponent from "react-cytoscapejs";
-import {Paper} from "@mui/material";
+import {Paper, hexToRgb} from "@mui/material";
 
 interface AutomatonGraphProps {
     graphData: GraphData
@@ -29,19 +29,33 @@ const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData}) => {
                 "text-halign": "center",
                 "text-valign": "center",
                 "border-color": "#1976D2",
-                "border-width": 2,
+                "border-width": 3,
                 "background-color": "#FFFFFF",
-                "size": "50px"
+                "width": "100px",
+                "height": "100px",
+                "font-size": "40px",
+                "font-weight": "bold",
             }
         },
         {
             selector: "edge[label]",
             style: {
                 label: "data(label)",
-                "curve-style": "unbundled-bezier(multiple)",
+                "curve-style": "bezier",
                 "target-arrow-shape": "triangle",
                 "line-color": "#1976D2",
+                "target-arrow-color": "#1976D2",
+                "font-size": "40px",
             }
+        },
+        {
+            selector: 'node[id = "1","2","6","5","9","8","11","12"]',
+            style: {
+                "border-style": "double",
+                "border-spacing": 30,
+                "border-width": 5,
+            }
+  
         },
     ];
 
