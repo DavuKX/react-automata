@@ -8,10 +8,11 @@ import ValidateSection from "@/components/validateSection/validateSection";
 interface ToolsSectionProps {
     onWordsChanged: (words: string) => void;
     inputWords: string,
-    onFinishedValidation: (word: string, result: string) => void
+    onFinishedValidation: (word: string, result: string) => void;
+    onStateChanged: (currentState: string, newState: string) => void
  }
 
-const ToolsSection: React.FC<ToolsSectionProps> = ({onWordsChanged, inputWords, onFinishedValidation}) => {
+const ToolsSection: React.FC<ToolsSectionProps> = ({onWordsChanged, inputWords, onFinishedValidation, onStateChanged}) => {
 
     const [automatonSpeed, setAutomatonSpeed] = useState(50)
 
@@ -61,6 +62,7 @@ const ToolsSection: React.FC<ToolsSectionProps> = ({onWordsChanged, inputWords, 
                             inputString={inputWords}
                             validationSpeed={getValidationSpeed()}
                             onFinishedValidation={onFinishedValidation}
+                            onStateChanged={onStateChanged}
                         />
                     </Grid>
                 </Grid>

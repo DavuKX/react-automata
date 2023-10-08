@@ -11,6 +11,10 @@ import {ValidationHistoryComponent} from "@/components/validationHistoryComponen
 export default function Home() {
     const [inputWords, setInputWords] = useState('');
     const {validationHistory, addValidationToHistory} = useValidationHistory();
+    const [currentNodes, setCurrentNodes] = useState({
+        currentState: "",
+        newState: "",
+    })
 
     const handleWordsChange = (words: string) => {
         setInputWords(words);
@@ -21,13 +25,17 @@ export default function Home() {
             <NavBar/>
             <Grid container spacing={2} style={{margin: '0 20px'}}>
                 <Grid xs={12}>
-                    <AutomatonGraph graphData={graphData}/>
+                    <AutomatonGraph graphData={graphData} state={currentNodes}/>
                 </Grid>
                 <Grid xs={6}>
                     <ToolsSection
                         onWordsChanged={handleWordsChange}
                         inputWords={inputWords}
                         onFinishedValidation={addValidationToHistory}
+                        onStateChanged={(currentState, newState) => setCurrentNodes({
+                            currentState: currentState,
+                            newState: newState
+                        })}
                     />
                 </Grid>
                 <Grid xs={6} className="h-full">
