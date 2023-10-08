@@ -4,8 +4,8 @@ import ToolsSection from "@/components/toolsSection/toolsSection";
 import Grid from '@mui/material/Unstable_Grid2'
 import AutomatonGraph from "@/components/automatonGraph/automatonGraph";
 import React, {useState} from 'react';
-import ValidateSection from "@/businessLogic/validateSection";
 import {validateString} from "@/businessLogic/validateString";
+import {graphData} from "@/constans";
 
 export default function Home() {
     const [validationResult, setValidationResult] = useState('');
@@ -25,11 +25,10 @@ export default function Home() {
             <NavBar/>
             <Grid container spacing={2}>
                 <Grid xs={3}>
-                    <ToolsSection onWordsChanged={handleWordsChange}/>
-                    <ValidateSection inputString={inputWords}/>
+                    <ToolsSection onWordsChanged={handleWordsChange} inputWords={inputWords}/>
                 </Grid>
                 <Grid xs={9}>
-                    <AutomatonGraph/>
+                    <AutomatonGraph graphData={graphData}/>
                 </Grid>
                 <Grid xs={12}></Grid>
             </Grid>

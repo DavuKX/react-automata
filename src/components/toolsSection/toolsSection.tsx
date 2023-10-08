@@ -1,14 +1,16 @@
 import React, { ChangeEvent } from 'react';
-import { Box, Button, Paper, Slider, TextField, Typography } from "@mui/material";
+import { Box, Paper, Slider, TextField, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { useTranslation } from 'react-i18next';
 import '@/i18n';
+import ValidateSection from "@/businessLogic/validateSection";
 
 interface ToolsSectionProps {
     onWordsChanged: (words: string) => void;
+    inputWords: string
 }
 
-const ToolsSection: React.FC<ToolsSectionProps> = ({ onWordsChanged }) => {
+const ToolsSection: React.FC<ToolsSectionProps> = ({ onWordsChanged, inputWords }) => {
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const words = e.target.value;
         onWordsChanged(words);
@@ -31,14 +33,14 @@ const ToolsSection: React.FC<ToolsSectionProps> = ({ onWordsChanged }) => {
                             onChange={handleInputChange}
                         />
                     </Grid>
-                    <Grid item>
+                    <Grid item xs={12} className="mt-6">
                         <Box>
                             <Typography>{t("speed")}</Typography>
                             <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="auto" min={10} />
                         </Box>
                     </Grid>
                     <Grid item xs={12}>
-                        <Button variant="outlined" fullWidth>{t("run")}</Button>
+                        <ValidateSection inputString={inputWords}/>
                     </Grid>
                 </Grid>
             </div>

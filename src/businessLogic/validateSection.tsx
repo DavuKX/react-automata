@@ -47,14 +47,14 @@ export const ValidateSection: React.FC<ValidateSectionProps> = ({inputString}) =
 
     return (
 
-        <Paper elevation={4} className="h-full">
+        <>
             <div className="p-6">
                 <Button variant="outlined" fullWidth onClick={handleValidate}>
                     {t("validate")}
                 </Button>
                 <div>{validationResult}</div>
             </div>
-        </Paper>
+        </>
     );
 };
 
