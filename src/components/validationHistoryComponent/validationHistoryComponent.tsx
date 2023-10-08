@@ -9,10 +9,10 @@ interface ValidationHistoryProps {
 }
 
 export function ValidationHistoryComponent({history}: ValidationHistoryProps) {
-    const {t: translate} = useTranslation();
+    const {t} = useTranslation();
     return (
         <Paper elevation={4} className="validation-history p-4 h-80" style={{overflowY: "auto"}}>
-            <h2>{translate('validationHistory')}</h2>
+            <h2>{t('validationHistory')}</h2>
             <ul>
                 {history.map((entry, index) => (
                     <li key={index}>
