@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import {Button} from '@mui/material';
 import {useTranslation} from 'react-i18next';
-import {useValidationHistory} from '@/businessLogic/validationHistory';
-import {validateString} from '@/businessLogic/validateString';
 import '@/i18n';
 import {validateAndSpeak} from "@/components/validateSection/helpers";
 

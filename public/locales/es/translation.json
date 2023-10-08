@@ -6,5 +6,6 @@
     "accept": "Palabra aceptada",
     "reject": "Palabra rechazada",
     "validate": "Validar palabra",
-    "validInput": "Ingrese una palabra válida."
+    "validInput": "Ingrese una palabra válida.",
+    "validationHistory": "Historial de validaciones"
 }

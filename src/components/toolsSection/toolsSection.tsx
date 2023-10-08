@@ -4,7 +4,6 @@ import Grid from "@mui/material/Grid";
 import {useTranslation} from 'react-i18next';
 import '@/i18n';
 import ValidateSection from "@/components/validateSection/validateSection";
-import {ValidationEntry} from "@/Interfaces/validationEntry";
 
 interface ToolsSectionProps {
     onWordsChanged: (words: string) => void;
