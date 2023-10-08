@@ -5,10 +5,14 @@ import CytoscapeComponent from "react-cytoscapejs";
 import {Paper, hexToRgb} from "@mui/material";
 
 interface AutomatonGraphProps {
-    graphData: GraphData
+    graphData: GraphData;
+    state: {
+        currentState: string,
+        newState: string
+    }
 }
 
-const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData}) => {
+const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, state}) => {
 
     const layout = {
         name: "breadthfirst",
