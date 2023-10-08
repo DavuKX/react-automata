@@ -4,21 +4,12 @@ import ToolsSection from "@/components/toolsSection/toolsSection";
 import Grid from '@mui/material/Unstable_Grid2'
 import AutomatonGraph from "@/components/automatonGraph/automatonGraph";
 import React, {useState} from 'react';
-import {validateString} from "@/businessLogic/validateString";
 import {graphData} from "@/constans";
-import { ValidationHistoryComponent, useValidationHistory } from "@/businessLogic/validationHistory";
+import {ValidationHistoryComponent, useValidationHistory} from "@/businessLogic/validationHistory";
 
 export default function Home() {
-    const [validationResult, setValidationResult] = useState('');
     const [inputWords, setInputWords] = useState('');
-    const { validationHistory, addValidationToHistory } = useValidationHistory();
-
-    const handleValidate = () => {
-        const isValid = validateString(inputWords);
-        const result = isValid ? 'String accepted' : 'String rejected';
-        setValidationResult(result);
-        addValidationToHistory(inputWords, result);
-    };
+    const {validationHistory, addValidationToHistory} = useValidationHistory();
 
     const handleWordsChange = (words: string) => {
         setInputWords(words);
@@ -27,7 +18,7 @@ export default function Home() {
     return (
         <div className='h-screen w-full bg-white'>
             <NavBar/>
-            <Grid container spacing={2} style={{ margin: '0 20px' }}>
+            <Grid container spacing={2} style={{margin: '0 20px'}}>
                 <Grid xs={3}>
                     <ToolsSection onWordsChanged={handleWordsChange} inputWords={inputWords}/>
                 </Grid>
@@ -35,7 +26,7 @@ export default function Home() {
                     <AutomatonGraph graphData={graphData}/>
                 </Grid>
                 <Grid xs={12} className="h-full">
-                    <ValidationHistoryComponent history={validationHistory} />
+                    <ValidationHistoryComponent history={validationHistory}/>
                 </Grid>
             </Grid>
         </div>
