@@ -3,9 +3,9 @@ import NavBar from "@/components/navBar/navBar";
 import ToolsSection from "@/components/toolsSection/toolsSection";
 import Grid from '@mui/material/Unstable_Grid2'
 import AutomatonGraph from "@/components/automatonGraph/automatonGraph";
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import ValidateSection from "@/businessLogic/validateSection";
-import { validateString } from "@/businessLogic/validateString";
+import {validateString} from "@/businessLogic/validateString";
 
 export default function Home() {
     const [validationResult, setValidationResult] = useState('');
@@ -16,20 +16,20 @@ export default function Home() {
         setValidationResult(isValid ? 'String accepted' : 'String rejected');
     };
 
-    const handleWordsChange = (words) => {
+    const handleWordsChange = (words: string) => {
         setInputWords(words);
     };
 
     return (
         <div className='h-screen w-full bg-white'>
-            <NavBar />
+            <NavBar/>
             <Grid container spacing={2}>
                 <Grid xs={3}>
-                    <ToolsSection onWordsChanged={handleWordsChange} />
+                    <ToolsSection onWordsChanged={handleWordsChange}/>
                     <ValidateSection inputString={inputWords}/>
                 </Grid>
                 <Grid xs={9}>
-                    <AutomatonGraph />
+                    <AutomatonGraph/>
                 </Grid>
                 <Grid xs={12}></Grid>
             </Grid>
