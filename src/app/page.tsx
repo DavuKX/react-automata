@@ -23,7 +23,7 @@ export default function Home() {
     return (
         <div className='h-screen w-full bg-white'>
             <NavBar/>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} style={{ margin: '0 20px' }}>
                 <Grid xs={3}>
                     <ToolsSection onWordsChanged={handleWordsChange} inputWords={inputWords}/>
                 </Grid>

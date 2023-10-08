@@ -27,27 +27,26 @@ const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData}) => {
                 label: "data(label)",
                 "text-halign": "center",
                 "text-valign": "center",
+                "border-color": "#1976D2",
+                "border-width": 2,
+                "background-color": "#FFFFFF",
+                "size": "50px"
             }
         },
         {
             selector: "edge[label]",
             style: {
                 label: "data(label)",
-                "curve-style": "bezier",
+                "curve-style": "unbundled-bezier(multiple)",
                 "target-arrow-shape": "triangle",
+                "line-color": "#1976D2",
             }
-        }
+        },
     ];
 
     return (
         <Paper elevation={4}>
             <div className="p-4">
-                <div
-                    style={{
-                        border: "1px solid",
-                        backgroundColor: "#f5f6fe"
-                    }}
-                >
                     <CytoscapeComponent
                         elements={CytoscapeComponent.normalizeElements(graphData)}
                         style={{width: "100%", height: "400px"}}
@@ -59,7 +58,6 @@ const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData}) => {
                         layout={layout}
                         stylesheet={styleSheet}
                     />
-                </div>
             </div>
         </Paper>
     );
