@@ -2,21 +2,21 @@ import {Automaton} from "@/types/automaton";
 
 export const graphData = {
     nodes: [
-        {data: {id: "0", label: "q0"}},
-        {data: {id: "1", label: "q1"}},
-        {data: {id: "2", label: "q2"}},
-        {data: {id: "3", label: "q3"}},
-        {data: {id: "4", label: "q4"}},
-        {data: {id: "5", label: "q5"}},
-        {data: {id: "6", label: "q6"}},
-        {data: {id: "7", label: "q7"}},
-        {data: {id: "8", label: "q8"}},
-        {data: {id: "9", label: "q9"}},
-        {data: {id: "10", label: "q10"}},
-        {data: {id: "11", label: "q11"}},
-        {data: {id: "12", label: "q12"}},
-        {data: {id: "13", label: "q13"}},
-        {data: {id: "14", label: "q14"}}
+        {data: {id: "0", label: "Start"}},
+        {data: {id: "1", label: "q0"}},
+        {data: {id: "2", label: "q1"}},
+        {data: {id: "3", label: "q2"}},
+        {data: {id: "4", label: "q3"}},
+        {data: {id: "5", label: "q4"}},
+        {data: {id: "6", label: "q5"}},
+        {data: {id: "7", label: "q6"}},
+        {data: {id: "8", label: "q7"}},
+        {data: {id: "9", label: "q8"}},
+        {data: {id: "10", label: "q9"}},
+        {data: {id: "11", label: "q10"}},
+        {data: {id: "12", label: "q11"}},
+        {data: {id: "13", label: "q12"}},
+        {data: {id: "14", label: "q13"}}
     ],
     edges: [
         {
