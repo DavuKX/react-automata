@@ -38,7 +38,7 @@ export default function Home() {
                         })}
                     />
                 </Grid>
-                <Grid xs={6} className="h-full">
+                <Grid xs={6}>
                     <ValidationHistoryComponent history={validationHistory}/>
                 </Grid>
             </Grid>

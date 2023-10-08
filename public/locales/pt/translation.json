@@ -7,5 +7,6 @@
     "reject": "Palavra rejeitada",
     "validate": "Validar palavra",
     "validInput": "Digite uma palavra válida.",
-    "validationHistory": "Histórico de validação"
+    "validationHistory": "Histórico de validação",
+    "re": "Expressão regular: (AA U AB)"
 }

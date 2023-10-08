@@ -7,5 +7,6 @@
     "reject": "Word rejected",
     "validate": "Validate word",
     "validInput": "Enter a valid word.",
-    "validationHistory": "Validation history"
+    "validationHistory": "Validation history",
+    "re": "Regular expression: (AA U AB)"
 }
