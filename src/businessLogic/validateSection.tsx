@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Paper} from '@mui/material';
+import {Button} from '@mui/material';
 import {validateString} from './validateString';
 import {useTranslation} from 'react-i18next';
+import { useValidationHistory } from './validationHistory';
 import '@/i18n'
 
 interface ValidateSectionProps {
@@ -10,6 +11,7 @@ interface ValidateSectionProps {
 
 export const ValidateSection: React.FC<ValidateSectionProps> = ({inputString}) => {
     const {t} = useTranslation();
+    const { addValidationToHistory } = useValidationHistory();
     const [validationResult, setValidationResult] = useState('');
     const [spokenMessage, setSpokenMessage] = useState('');
     const [isSpeaking, setIsSpeaking] = useState(false);
@@ -32,6 +34,7 @@ export const ValidateSection: React.FC<ValidateSectionProps> = ({inputString}) =
             const message = isValid ? t("accept") : t("reject");
             setValidationResult(message);
             setSpokenMessage(message);
+            addValidationToHistory(inputString, message);
 
             if (!isSpeaking) {
                 setIsSpeaking(true);

@@ -6,14 +6,18 @@ import AutomatonGraph from "@/components/automatonGraph/automatonGraph";
 import React, {useState} from 'react';
 import {validateString} from "@/businessLogic/validateString";
 import {graphData} from "@/constans";
+import { ValidationHistoryComponent, useValidationHistory } from "@/businessLogic/validationHistory";
 
 export default function Home() {
     const [validationResult, setValidationResult] = useState('');
     const [inputWords, setInputWords] = useState('');
+    const { validationHistory, addValidationToHistory } = useValidationHistory();
 
     const handleValidate = () => {
         const isValid = validateString(inputWords);
-        setValidationResult(isValid ? 'String accepted' : 'String rejected');
+        const result = isValid ? 'String accepted' : 'String rejected';
+        setValidationResult(result);
+        addValidationToHistory(inputWords, result);
     };
 
     const handleWordsChange = (words: string) => {
@@ -30,7 +34,9 @@ export default function Home() {
                 <Grid xs={9}>
                     <AutomatonGraph graphData={graphData}/>
                 </Grid>
-                <Grid xs={12}></Grid>
+                <Grid xs={12}>
+                    <ValidationHistoryComponent history={validationHistory} />
+                </Grid>
             </Grid>
         </div>
     );
