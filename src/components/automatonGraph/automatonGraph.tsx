@@ -13,7 +13,6 @@ interface AutomatonGraphProps {
 }
 
 const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, state}) => {
-
     const layout = {
         name: "breadthfirst",
         fit: true,
@@ -39,6 +38,7 @@ const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, state}) => {
                 "height": "100px",
                 "font-size": "40px",
                 "font-weight": "bold",
+                "shape": "ellipse",
             }
         },
         {
@@ -53,15 +53,17 @@ const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, state}) => {
             }
         },
         {
-            selector: 'node[id = "1","2","6","5","9","8","11","12"]',
+            selector: 'node[final]',
             style: {
+                "border-color": "#1976D2",
+                "border-width": 3,
+                "shape": "round-diamond",
                 "border-style": "double",
-                "border-spacing": 30,
-                "border-width": 5,
             }
-  
-        },
+        }
+        
     ];
+    
 
     return (
         <Paper elevation={4}>
