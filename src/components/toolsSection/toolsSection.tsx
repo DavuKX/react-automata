@@ -30,7 +30,7 @@ const ToolsSection: React.FC<ToolsSectionProps> = ({onWordsChanged, inputWords, 
 
     const {t} = useTranslation();
     return (
-        <Paper elevation={4} className="h-full">
+        <Paper elevation={4} className="h-80">
             <div className="p-6">
                 <Grid container>
                     <Grid item xs={12}>

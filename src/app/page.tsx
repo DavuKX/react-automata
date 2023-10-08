@@ -17,20 +17,20 @@ export default function Home() {
     };
 
     return (
-        <div className='h-screen w-full bg-white'>
+        <div className='w-full bg-white'>
             <NavBar/>
             <Grid container spacing={2} style={{margin: '0 20px'}}>
-                <Grid xs={3}>
+                <Grid xs={12}>
+                    <AutomatonGraph graphData={graphData}/>
+                </Grid>
+                <Grid xs={6}>
                     <ToolsSection
                         onWordsChanged={handleWordsChange}
                         inputWords={inputWords}
                         onFinishedValidation={addValidationToHistory}
                     />
                 </Grid>
-                <Grid xs={9}>
-                    <AutomatonGraph graphData={graphData}/>
-                </Grid>
-                <Grid xs={12} className="h-full">
+                <Grid xs={6} className="h-full">
                     <ValidationHistoryComponent history={validationHistory}/>
                 </Grid>
             </Grid>

@@ -8,7 +8,7 @@ interface ValidationHistoryProps {
 
 export function ValidationHistoryComponent({history}: ValidationHistoryProps) {
     return (
-        <Paper elevation={4} className="validation-history p-4 h-64">
+        <Paper elevation={4} className="validation-history p-4 h-80">
             <h2>Validation History</h2>
             <ul>
                 {history.map((entry, index) => (
