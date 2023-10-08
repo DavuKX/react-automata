@@ -4,13 +4,15 @@ import Grid from "@mui/material/Grid";
 import {useTranslation} from 'react-i18next';
 import '@/i18n';
 import ValidateSection from "@/components/validateSection/validateSection";
+import {ValidationEntry} from "@/Interfaces/validationEntry";
 
 interface ToolsSectionProps {
     onWordsChanged: (words: string) => void;
-    inputWords: string
-}
+    inputWords: string,
+    onFinishedValidation: (word: string, result: string) => void
+ }
 
-const ToolsSection: React.FC<ToolsSectionProps> = ({onWordsChanged, inputWords}) => {
+const ToolsSection: React.FC<ToolsSectionProps> = ({onWordsChanged, inputWords, onFinishedValidation}) => {
 
     const [automatonSpeed, setAutomatonSpeed] = useState(50)
 
@@ -59,6 +61,7 @@ const ToolsSection: React.FC<ToolsSectionProps> = ({onWordsChanged, inputWords})
                         <ValidateSection
                             inputString={inputWords}
                             validationSpeed={getValidationSpeed()}
+                            onFinishedValidation={onFinishedValidation}
                         />
                     </Grid>
                 </Grid>

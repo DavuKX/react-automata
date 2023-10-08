@@ -4,33 +4,22 @@ import {useTranslation} from 'react-i18next';
 import {useValidationHistory} from '@/businessLogic/validationHistory';
 import {validateString} from '@/businessLogic/validateString';
 import '@/i18n';
+import {validateAndSpeak} from "@/components/validateSection/helpers";
 
 interface ValidateSectionProps {
     inputString: string;
-    validationSpeed: number
+    validationSpeed: number;
+    onFinishedValidation: (word: string, result: string) => void
 }
 
-const speak = (message: string): void => {
-    const synth = window.speechSynthesis;
-    const utterance = new SpeechSynthesisUtterance(message);
-    synth.speak(utterance);
-};
-
-const validateAndSpeak = async (inputString: string, t: (key: string) => string, validationSpeed: number): Promise<void> => {
-    const isValid = validateString(inputString, validationSpeed);
-    const message = await isValid ? t('accept') : t('reject');
-    speak(message);
-};
-
-const ValidateSection: React.FC<ValidateSectionProps> = ({inputString, validationSpeed}) => {
+const ValidateSection: React.FC<ValidateSectionProps> = ({inputString, validationSpeed, onFinishedValidation}) => {
     const {t} = useTranslation();
-    const {addValidationToHistory} = useValidationHistory();
     const [validationResult, setValidationResult] = useState('');
 
     const handleValidate = () => {
         if (inputString && inputString.length > 0) {
-            validateAndSpeak(inputString, t, validationSpeed).then(r => r);
-            addValidationToHistory(inputString, validationResult);
+            validateAndSpeak(inputString, t, validationSpeed)
+                .then(validationResult => onFinishedValidation(inputString, validationResult));
         } else {
             setValidationResult(t('validInput'));
         }

@@ -9,7 +9,6 @@ export const validateString = async (inputString: string, validationSpeed: numbe
 
         if (automaton.transitions[currentState] && automaton.transitions[currentState][character]) {
             currentState = automaton.transitions[currentState][character];
-            console.log(currentState)
         } else {
             return false;
         }
