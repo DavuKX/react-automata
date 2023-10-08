@@ -1,5 +1,6 @@
 "use client"
-import React, {useState} from 'react';
+import React from 'react';
+// @ts-ignore
 import CytoscapeComponent from "react-cytoscapejs";
 import {Paper} from "@mui/material";
 

@@ -34,7 +34,7 @@ export default function Home() {
                 <Grid xs={9}>
                     <AutomatonGraph graphData={graphData}/>
                 </Grid>
-                <Grid xs={12}>
+                <Grid xs={12} className="h-full">
                     <ValidationHistoryComponent history={validationHistory} />
                 </Grid>
             </Grid>

@@ -3,7 +3,7 @@ import { Box, Paper, Slider, TextField, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { useTranslation } from 'react-i18next';
 import '@/i18n';
-import ValidateSection from "@/businessLogic/validateSection";
+import ValidateSection from "@/components/validateSection/validateSection";
 
 interface ToolsSectionProps {
     onWordsChanged: (words: string) => void;
