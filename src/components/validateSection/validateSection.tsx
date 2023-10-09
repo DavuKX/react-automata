@@ -13,14 +13,15 @@ interface ValidateSectionProps {
 
 const ValidateSection: React.FC<ValidateSectionProps> = ({inputString, validationSpeed, onFinishedValidation, onStateChanged}) => {
     const {t} = useTranslation();
-    const [validationResult, setValidationResult] = useState('');
+    const [validInputMessageVisible, setValidInputMessageVisible] = useState(false);
 
-    const handleValidate = () => {
+    const handleValidate = async () => {
         if (inputString && inputString.length > 0) {
-            validateAndSpeak(inputString, t, validationSpeed, onStateChanged)
-                .then(validationResult => onFinishedValidation(inputString, validationResult));
+            setValidInputMessageVisible(false);
+            const validationResult = await validateAndSpeak(inputString, t, validationSpeed, onStateChanged);
+            onFinishedValidation(inputString, validationResult);
         } else {
-            setValidationResult(t('validInput'));
+            setValidInputMessageVisible(true);
         }
     };
 
@@ -30,7 +31,7 @@ const ValidateSection: React.FC<ValidateSectionProps> = ({inputString, validatio
                 <Button variant="outlined" fullWidth onClick={handleValidate}>
                     {t('validate')}
                 </Button>
-                <div>{validationResult}</div>
+                {validInputMessageVisible && <div>{t('validInput')}</div>}
             </div>
         </>
     );

@@ -19,7 +19,7 @@ export const validateString = async (inputString: string, validationSpeed: numbe
 
     for (let i = 0; i < enteredString.length; i++) {
         const character = enteredString[i];
-        const newState = automaton.transitions[currentState][character];
+        const newState = automaton.transitions[currentState] && automaton.transitions[currentState][character];
 
         if (automaton.transitions[currentState] && newState) {
             onStateChanged(currentState, newState)
