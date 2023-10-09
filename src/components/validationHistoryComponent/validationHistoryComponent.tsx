@@ -15,7 +15,7 @@ export function ValidationHistoryComponent({history}: ValidationHistoryProps) {
             <h2>{t('validationHistory')}</h2>
             <ul>
                 {history.map((entry, index) => (
-                    <li key={index}>
+                    <li key={index} className={entry.result === t('reject') ? "bg-red-400" : "bg-green-400"}>
                         <strong>{entry.input}</strong> - {entry.result}
                     </li>
                 ))}

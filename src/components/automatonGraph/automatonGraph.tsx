@@ -1,5 +1,5 @@
 "use client"
-import React from 'react';
+import React, {useEffect} from 'react';
 // @ts-ignore
 import CytoscapeComponent from "react-cytoscapejs";
 import {Paper, hexToRgb} from "@mui/material";
@@ -13,6 +13,40 @@ interface AutomatonGraphProps {
 }
 
 const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, state}) => {
+    const graphRef = React.useRef<any>(null);
+    useEffect(() => {
+        if (graphRef.current) {
+            graphRef.current.nodes().forEach((node: any) => {
+                if (node.data().label === state.currentState || node.data().label === state.newState) {
+                    node.style({
+                        "border-color": "#d21919",
+                        "border-width": 3,
+                    })
+                } else {
+                    node.style({
+                        "border-color": "#1976D2",
+                        "border-width": 3,
+                    })
+                }
+
+                node.connectedEdges().forEach((edge: any) => {
+                    const connectedNodes = edge.connectedNodes();
+                    if (connectedNodes[0].data().label === state.currentState && connectedNodes[1].data().label === state.newState) {
+                        edge.style({
+                            "line-color": "#d21919",
+                            "target-arrow-color": "#d21919",
+                        })
+                    } else {
+                        edge.style({
+                            "line-color": "#1976D2",
+                            "target-arrow-color": "#1976D2",
+                        })
+                    }
+                })
+            })
+        }
+    }, [state])
+
     const layout = {
         name: "breadthfirst",
         fit: true,
@@ -78,6 +112,9 @@ const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, state}) => {
                         boxSelectionEnabled={true}
                         layout={layout}
                         stylesheet={styleSheet}
+                        cy={(cy: any) => {
+                            graphRef.current = cy;
+                        }}
                     />
             </div>
         </Paper>
