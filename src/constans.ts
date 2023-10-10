@@ -2,7 +2,7 @@ import {Automaton} from "@/types/automaton";
 
 export const graphData = {
     nodes: [
-        {data: {id: "0", label: "Start"}},
+        {data: {id: "0", label: "start"}},
         {data: {id: "1", label: "q0"}},
         {data: {id: "2", label: "q1"}},
         {data: {id: "3", label: "q2", final: "true"}},
