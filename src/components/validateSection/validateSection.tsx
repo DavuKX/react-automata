@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Button} from '@mui/material';
 import {useTranslation} from 'react-i18next';
 import '@/i18n';
-import {validateAndSpeak} from "@/components/validateSection/helpers";
+import {speak, validateString} from "@/components/validateSection/helpers";
 
 interface ValidateSectionProps {
     inputString: string;
@@ -14,6 +14,13 @@ interface ValidateSectionProps {
 const ValidateSection: React.FC<ValidateSectionProps> = ({inputString, validationSpeed, onFinishedValidation, onStateChanged}) => {
     const {t} = useTranslation();
     const [validInputMessageVisible, setValidInputMessageVisible] = useState(false);
+
+    const validateAndSpeak = async (inputString: string, t: (key: string) => string, validationSpeed: number, onStateChanged: (currentState: string, newState: string) => void): Promise<string> => {
+        const isValid = validateString(inputString, validationSpeed, onStateChanged);
+        const message = await isValid ? 'accept' : 'reject';
+        speak(t(message));
+        return message;
+    };
 
     const handleValidate = async () => {
         if (inputString && inputString.length > 0) {

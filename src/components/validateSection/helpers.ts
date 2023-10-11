@@ -1,4 +1,5 @@
 import {automaton} from "@/constans";
+import {useTranslation} from "react-i18next";
 
 export const speak = (message: string): void => {
     const synth = window.speechSynthesis;

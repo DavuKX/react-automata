@@ -21,13 +21,13 @@ export default function Home() {
     };
 
     return (
-        <div className='w-full bg-white'>
+        <div className='w-full bg-white h-screen'>
             <NavBar/>
             <Grid container spacing={2} style={{margin: '0 20px'}}>
                 <Grid xs={12}>
                     <AutomatonGraph graphData={graphData} state={currentNodes}/>
                 </Grid>
-                <Grid xs={6}>
+                <Grid lg={6} md={12} xs={12}>
                     <ToolsSection
                         onWordsChanged={handleWordsChange}
                         inputWords={inputWords}
@@ -38,7 +38,7 @@ export default function Home() {
                         })}
                     />
                 </Grid>
-                <Grid xs={6}>
+                <Grid lg={6} md={12} xs={12}>
                     <ValidationHistoryComponent history={validationHistory}/>
                 </Grid>
             </Grid>
