@@ -15,47 +15,59 @@ interface AutomatonGraphProps {
 const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, state}) => {
     const graphRef = React.useRef<any>(null);
     const mainColor = "#1976D2";
-    const secondaryColor = "#d21919";
+    const secondaryColor = "#6400b4";
+
+    const applyStylesToNodes = (nodes: any, state: any) => {
+        nodes.forEach((node: any) => {
+            if (node.data().label === state.currentState || node.data().label === state.newState) {
+                node.style({
+                    "border-color": secondaryColor,
+                    "border-width": "6px",
+                });
+            } else {
+                node.style({
+                    "border-color": mainColor,
+                    "border-width": "3px",
+                });
+            }
+        });
+    };
+
+    const applyStylesToEdges = (edges: any, state: any) => {
+        edges.forEach((edge: any) => {
+            const connectedNodes = edge.connectedNodes();
+            if (connectedNodes[0].data().label === state.currentState && connectedNodes[1].data().label === state.newState) {
+                edge.style({
+                    "line-color": secondaryColor,
+                    "target-arrow-color": secondaryColor,
+                });
+            } else {
+                edge.style({
+                    "line-color": mainColor,
+                    "target-arrow-color": mainColor,
+                });
+            }
+        });
+    };
+
+
     useEffect(() => {
         if (graphRef.current) {
-            graphRef.current.nodes().forEach((node: any) => {
-                if (node.data().label === state.currentState || node.data().label === state.newState) {
-                    node.style({
-                        "border-color": secondaryColor,
-                    })
-                } else {
-                    node.style({
-                        "border-color": mainColor,
-                    })
-                }
-
-                node.connectedEdges().forEach((edge: any) => {
-                    const connectedNodes = edge.connectedNodes();
-                    if (connectedNodes[0].data().label === state.currentState && connectedNodes[1].data().label === state.newState) {
-                        edge.style({
-                            "line-color": secondaryColor,
-                            "target-arrow-color": secondaryColor,
-                        })
-                    } else {
-                        edge.style({
-                            "line-color": mainColor,
-                            "target-arrow-color": mainColor,
-                        })
-                    }
-                })
-            })
+            applyStylesToNodes(graphRef.current.nodes(), state);
+            applyStylesToEdges(graphRef.current.edges(), state);
         }
     }, [state])
 
     const layout = {
         name: "breadthfirst",
-        fit: true,
-        directed: true,
-        padding: 50,
+        padding: 10,
+        spacingFactor: 3.5,
         animate: true,
         animationDuration: 1000,
+        animationEasing: "ease-in-out",
+        fit: true,
+        nodeDimensionsIncludeLabels: true,
         avoidOverlap: true,
-        nodeDimensionsIncludeLabels: false
     };
 
     const styleSheet = [
@@ -68,8 +80,8 @@ const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, state}) => {
                 "border-color": mainColor,
                 "border-width": 3,
                 "background-color": "#FFFFFF",
-                "width": "100px",
-                "height": "100px",
+                "width": "120px",
+                "height": "120px",
                 "font-size": "40px",
                 "font-weight": "bold",
                 "shape": "ellipse",
@@ -83,7 +95,9 @@ const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, state}) => {
                 "target-arrow-shape": "triangle",
                 "line-color": mainColor,
                 "target-arrow-color": mainColor,
-                "font-size": "40px",
+                "font-size": 60,
+                "width": 4,
+                "arrow-scale": 4,
             }
         },
         {
@@ -94,7 +108,13 @@ const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, state}) => {
                 "border-style": "double",
                 "background-color": "#C0E0FF",
             }
-        }
+        },
+        {
+            selector: "node#start",
+            style: {
+                "background-color": "#d9ff8d",
+            }
+        },
         
     ];
     
