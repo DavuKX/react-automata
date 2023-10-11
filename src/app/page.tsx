@@ -7,6 +7,7 @@ import React, {useState} from 'react';
 import {graphData} from "@/constans";
 import {useValidationHistory} from "@/businessLogic/validationHistory";
 import {ValidationHistoryComponent} from "@/components/validationHistoryComponent/validationHistoryComponent";
+import Footer from "@/components/footer/footer";
 
 export default function Home() {
     const [inputWords, setInputWords] = useState('');
@@ -23,7 +24,7 @@ export default function Home() {
     return (
         <div className='w-full bg-white'>
             <NavBar/>
-            <Grid container spacing={2} style={{margin: '0 20px'}}>
+            <Grid container spacing={2}  style={{ margin: '20px 40px 20px 40px', backgroundColor: 'white' }}>
                 <Grid xs={12}>
                     <AutomatonGraph graphData={graphData} state={currentNodes}/>
                 </Grid>
@@ -42,6 +43,7 @@ export default function Home() {
                     <ValidationHistoryComponent history={validationHistory}/>
                 </Grid>
             </Grid>
+            <Footer/>
         </div>
     );
 }

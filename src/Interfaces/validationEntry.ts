@@ -3,3 +3,4 @@ export interface ValidationEntry {
     result: string;
     timestamp: Date;
 }
+
