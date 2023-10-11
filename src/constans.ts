@@ -2,88 +2,88 @@ import {Automaton} from "@/types/automaton";
 
 export const graphData = {
     nodes: [
-        {data: {id: "0", label: "start"}},
-        {data: {id: "1", label: "q0"}},
-        {data: {id: "2", label: "q1"}},
-        {data: {id: "3", label: "q2", final: "true"}},
-        {data: {id: "4", label: "q3", final: "true"}},
-        {data: {id: "5", label: "q4"}},
-        {data: {id: "6", label: "q5", final: "true"}},
-        {data: {id: "7", label: "q6", final: "true"}},
-        {data: {id: "8", label: "q7"}},
-        {data: {id: "9", label: "q8",final: "true"}},
-        {data: {id: "10", label: "q9",final: "true"}},
-        {data: {id: "11", label: "q10"}},
-        {data: {id: "12", label: "q11",final: "true"}},
-        {data: {id: "13", label: "q12",final: "true"}},
-        {data: {id: "14", label: "q13"}}
+        {data: {id: "start", label: "start"}},
+        {data: {id: "q0", label: "q0"}},
+        {data: {id: "q1", label: "q1"}},
+        {data: {id: "q2", label: "q2", final: "true"}},
+        {data: {id: "q3", label: "q3", final: "true"}},
+        {data: {id: "q4", label: "q4"}},
+        {data: {id: "q5", label: "q5", final: "true"}},
+        {data: {id: "q6", label: "q6", final: "true"}},
+        {data: {id: "q7", label: "q7"}},
+        {data: {id: "q8", label: "q8",final: "true"}},
+        {data: {id: "q9", label: "q9",final: "true"}},
+        {data: {id: "q10", label: "q10"}},
+        {data: {id: "q11", label: "q11",final: "true"}},
+        {data: {id: "q12", label: "q12",final: "true"}},
+        {data: {id: "q13", label: "q13"}}
     ],
     edges: [
         {
-            data: {source: "0", target: "1", label: "B"}
+            data: {source: "start", target: "q0", label: "B"}
         },
         {
-            data: {source: "0", target: "2", label: "A"}
+            data: {source: "start", target: "q1", label: "A"}
         },
         {
-            data: {source: "2", target: "3", label: "A"}
+            data: {source: "q1", target: "q2", label: "A"}
         },
         {
-            data: {source: "2", target: "4", label: "B"}
+            data: {source: "q1", target: "q3", label: "B"}
         },
         {
-            data: {source: "3", target: "5", label: "A"}
+            data: {source: "q2", target: "q4", label: "A"}
         },
         {
-            data: {source: "4", target: "5", label: "A"}
+            data: {source: "q3", target: "q4", label: "A"}
         },
         {
-            data: {source: "3", target: "14", label: "B"}
+            data: {source: "q2", target: "q13", label: "B"}
         },
         {
-            data: {source: "4", target: "14", label: "B"}
+            data: {source: "q3", target: "q13", label: "B"}
         },
         {
-            data: {source: "5", target: "7", label: "B"}
+            data: {source: "q4", target: "q6", label: "B"}
         },
         {
-            data: {source: "7", target: "14", label: "B"}
+            data: {source: "q6", target: "q13", label: "B"}
         },
         {
-            data: {source: "5", target: "6", label: "A"}
+            data: {source: "q4", target: "q5", label: "A"}
         },
         {
-            data: {source: "7", target: "8", label: "A"}
+            data: {source: "q6", target: "q7", label: "A"}
         },
         {
-            data: {source: "8", target: "9", label: "A"}
+            data: {source: "q7", target: "q8", label: "A"}
         },
         {
-            data: {source: "9", target: "14", label: "B"}
+            data: {source: "q8", target: "q13", label: "B"}
         },
         {
-            data: {source: "6", target: "14", label: "B"}
+            data: {source: "q5", target: "q13", label: "B"}
         },
         {
-            data: {source: "6", target: "7", label: "A"}
+            data: {source: "q5", target: "q6", label: "A"}
         },
         {
-            data: {source: "8", target: "10", label: "B"}
+            data: {source: "q7", target: "q9", label: "B"}
         },
         {
-            data: {source: "10", target: "14", label: "B"}
+            data: {source: "q9", target: "q13", label: "B"}
         },
         {
-            data: {source: "10", target: "11", label: "A"}
+            data: {source: "q9", target: "q10", label: "A"}
         },
         {
-            data: {source: "9", target: "11", label: "A"}
+            data: {source: "q8", target: "q10", label: "A"}
         },
         {
-            data: {source: "11", target: "12", label: "A"}
+            data: {source: "q10", target: "q11", label: "A"}
         },
         {
-            data: {source: "11", target: "13", label: "B"}
+            data: {source: "q10", target: "q12", label: "B"}
         }
     ]
 }
@@ -97,11 +97,11 @@ export const automaton: Automaton = {
         q2: {a: 'q4', b: 'q13'},
         q3: {a: 'q4', b: 'q13'},
         q4: {a: 'q5', b: 'q6'},
-        q5: {a: 'q7', b: 'q13'},
+        q5: {a: 'q6', b: 'q13'},
         q6: {a: 'q7', b: 'q13'},
         q7: {a: 'q8', b: 'q9'},
-        q8: {a: 'q10'},
-        q9: {a: 'q10'},
+        q8: {a: 'q10', b: 'q13'},
+        q9: {a: 'q10', b: 'q13'},
         q10: {a: 'q11', b: 'q12'},
     },
     initialState: 'start',
