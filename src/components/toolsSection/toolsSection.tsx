@@ -33,8 +33,8 @@ const ToolsSection: React.FC<ToolsSectionProps> = ({onWordsChanged, inputWords, 
         <Paper elevation={4} className="h-72">
             <div className="p-6">
                 <Grid container>
-                    <Grid item xs={12} className='pb-2'>
-                        <Typography className='pb-1' fontSize={18} fontWeight={"bold"}>{t("re")}<sup>4</sup></Typography>
+                    <Grid item xs={12} className='pb-1'>
+                        <Typography className='pb-4' fontSize={18} fontWeight={"bold"}>{t("re")}<sup>4</sup></Typography>
                         <TextField
                             id="outlined-multiline-static"
                             label={t("word")}
@@ -46,7 +46,7 @@ const ToolsSection: React.FC<ToolsSectionProps> = ({onWordsChanged, inputWords, 
                             onChange={handleInputChange}
                         />
                     </Grid>
-                    <Grid item xs={12} className="mt-4 ">
+                    <Grid item xs={12} className="mt-5 ">
                         <Box>
                             <Typography >{t("speed")}</Typography>
                             <Slider
