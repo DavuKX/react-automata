@@ -8,7 +8,7 @@ export const speak = (message: string): void => {
 
 export const validateAndSpeak = async (inputString: string, t: (key: string) => string, validationSpeed: number, onStateChanged: (currentState: string, newState: string) => void): Promise<string> => {
     const isValid = validateString(inputString, validationSpeed, onStateChanged);
-    const message = await isValid ? t('accept') : t('reject');
+    const message = await isValid ? 'accept' : 'reject';
     speak(message);
     return message;
 };

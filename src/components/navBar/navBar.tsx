@@ -4,12 +4,11 @@ import { LanguageIcon } from "@heroicons/react/24/solid";
 import { useTranslation } from 'react-i18next';
 import '@/i18n';
 import { LanguageMenu } from "@/components/navBar/languajeMenu";
-import {AppBar, Box, Button, IconButton, Toolbar, Typography} from "@mui/material";
+import {AppBar, Box, IconButton, Toolbar, Typography} from "@mui/material";
 
 type Props = {};
 
 const NavBar = (props: Props) => {
-    const flexBetween = "flex justify-between items-center";
     const { t, i18n } = useTranslation();
     const [isLanguageMenuOpen, setLanguageMenuOpen] = useState(false);
 
@@ -35,7 +34,7 @@ const NavBar = (props: Props) => {
                     >
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Automaton Simulator
+                        {t('title')}
                     </Typography>
                     <div className="relative">
                         <div className="mr-8 w-6 h-6 p-1 cursor-pointer" onClick={toggleLanguageMenu}>

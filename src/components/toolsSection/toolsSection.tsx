@@ -30,25 +30,25 @@ const ToolsSection: React.FC<ToolsSectionProps> = ({onWordsChanged, inputWords, 
 
     const {t} = useTranslation();
     return (
-        <Paper elevation={4} className="h-90">
+        <Paper elevation={4} className="h-72">
             <div className="p-6">
                 <Grid container>
                     <Grid item xs={12}>
-                        <Typography className='pb-4'>{t("re")}<sup>4</sup></Typography>
+                        <Typography className='pb-4' fontSize={18} fontWeight={"bold"}>{t("re")}<sup>4</sup></Typography>
                         <TextField
                             id="outlined-multiline-static"
                             label={t("word")}
                             multiline
                             defaultValue=""
                             fullWidth
-                            minRows={4}
-                            maxRows={10}
+                            minRows={1}
+                            maxRows={2}
                             onChange={handleInputChange}
                         />
                     </Grid>
                     <Grid item xs={12} className="mt-6">
                         <Box>
-                            <Typography>{t("speed")}</Typography>
+                            <Typography >{t("speed")}</Typography>
                             <Slider
                                 value={automatonSpeed}
                                 aria-label="Default"

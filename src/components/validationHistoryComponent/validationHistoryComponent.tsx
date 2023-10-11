@@ -1,4 +1,4 @@
-import {Paper} from "@mui/material";
+import {List, ListItem, Paper, Typography} from "@mui/material";
 import React from "react";
 import {ValidationEntry} from "@/Interfaces/validationEntry";
 import {useTranslation} from "react-i18next";
@@ -11,15 +11,15 @@ interface ValidationHistoryProps {
 export function ValidationHistoryComponent({history}: ValidationHistoryProps) {
     const {t} = useTranslation();
     return (
-        <Paper elevation={4} className="validation-history p-4 h-80" style={{overflowY: "auto"}}>
-            <h2>{t('validationHistory')}</h2>
-            <ul>
+        <Paper elevation={4} className="validation-history p-6 h-72" style={{overflowY: "auto"}}>
+            <Typography fontSize={18} fontWeight={"bold"}>{t('validationHistory')}</Typography>
+            <List>
                 {history.map((entry, index) => (
-                    <li key={index} className={entry.result === t('reject') ? "bg-red-400" : "bg-green-400"}>
-                        <strong>{entry.input}</strong> - {entry.result}
-                    </li>
+                    <ListItem key={index} className={t(entry.result) === t('reject') ? "bg-red-400" : "bg-green-400"}>
+                        <strong className="pr-1">{entry.input}</strong> - {t(entry.result)}
+                    </ListItem>
                 ))}
-            </ul>
+            </List>
         </Paper>
     );
 }
