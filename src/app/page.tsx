@@ -21,7 +21,7 @@ export default function Home() {
     };
 
     return (
-        <div className='w-full bg-white h-screen'>
+        <div className='w-full bg-white'>
             <NavBar/>
             <Grid container spacing={2} style={{margin: '0 20px'}}>
                 <Grid xs={12}>
