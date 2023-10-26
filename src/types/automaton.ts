@@ -11,3 +11,5 @@ export type Automaton = {
     initialState: string;
     acceptanceStates: string[];
 };
+
+export type AutomatonTypes = 'finite' | 'pushdown';

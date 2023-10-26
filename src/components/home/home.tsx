@@ -3,17 +3,13 @@ import {useValidationHistory} from "@/businessLogic/validationHistory";
 import NavBar from "@/components/navBar/navBar";
 import Grid from "@mui/material/Unstable_Grid2";
 import AutomatonGraph from "@/components/automatonGraph/automatonGraph";
-import {graphData} from "@/constans";
+import {finiteAutomatonGraphData} from "@/constans";
 import ToolsSection from "@/components/toolsSection/toolsSection";
 import {ValidationHistoryComponent} from "@/components/validationHistoryComponent/validationHistoryComponent";
 
 export default function Home(): JSX.Element {
     const [inputWords, setInputWords] = useState('');
     const {validationHistory, addValidationToHistory} = useValidationHistory();
-    const [currentNodes, setCurrentNodes] = useState({
-        currentState: "",
-        newState: "",
-    })
 
     const handleWordsChange = (words: string): void => {
         setInputWords(words);
@@ -24,17 +20,13 @@ export default function Home(): JSX.Element {
             <NavBar/>
             <Grid container spacing={2} style={{margin: '0 20px'}}>
                 <Grid xs={12}>
-                    <AutomatonGraph graphData={graphData} state={currentNodes}/>
+                    <AutomatonGraph graphData={finiteAutomatonGraphData}/>
                 </Grid>
                 <Grid lg={6} md={12} xs={12}>
                     <ToolsSection
                         onWordsChanged={handleWordsChange}
                         inputWords={inputWords}
                         onFinishedValidation={addValidationToHistory}
-                        onStateChanged={(currentState, newState) => setCurrentNodes({
-                            currentState: currentState,
-                            newState: newState
-                        })}
                     />
                 </Grid>
                 <Grid lg={6} md={12} xs={12}>

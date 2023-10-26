@@ -8,5 +8,9 @@
     "validate": "Validate word",
     "validInput": "Enter a valid word.",
     "validationHistory": "Validation history",
-    "re": "Regular expression: (AA U AB)"
+    "finiteAutomatonRE": "Regular expression: (AA U AB)",
+    "pushdownAutomatonRE": "Regular expression: (AA U AB)*",
+    "automatonSelectLabel": "Select automaton",
+    "finiteAutomatonLabel": "Finite automaton",
+    "pushdownAutomatonLabel": "Pushdown automaton"
 }

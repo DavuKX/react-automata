@@ -1,6 +1,6 @@
 import {Automaton} from "@/types/automaton";
 
-export const graphData = {
+export const finiteAutomatonGraphData = {
     nodes: [
         {data: {id: "start", label: "start"}},
         {data: {id: "q0", label: "q0"}},
@@ -11,11 +11,11 @@ export const graphData = {
         {data: {id: "q5", label: "q5", final: "true"}},
         {data: {id: "q6", label: "q6", final: "true"}},
         {data: {id: "q7", label: "q7"}},
-        {data: {id: "q8", label: "q8",final: "true"}},
-        {data: {id: "q9", label: "q9",final: "true"}},
+        {data: {id: "q8", label: "q8", final: "true"}},
+        {data: {id: "q9", label: "q9", final: "true"}},
         {data: {id: "q10", label: "q10"}},
-        {data: {id: "q11", label: "q11",final: "true"}},
-        {data: {id: "q12", label: "q12",final: "true"}},
+        {data: {id: "q11", label: "q11", final: "true"}},
+        {data: {id: "q12", label: "q12", final: "true"}},
         {data: {id: "q13", label: "q13"}}
     ],
     edges: [
@@ -88,7 +88,12 @@ export const graphData = {
     ]
 }
 
-export const automaton: Automaton = {
+export const pushdownAutomatonGraphData = {
+    nodes: [],
+    edges: []
+}
+
+export const finiteAutomaton: Automaton = {
     states: ['start', 'q0', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13'],
     alphabet: ['a', 'b'],
     transitions: {
@@ -107,3 +112,11 @@ export const automaton: Automaton = {
     initialState: 'start',
     acceptanceStates: ['q2', 'q3', 'q5', 'q6', 'q8', 'q9', 'q11', 'q12'],
 };
+
+export const pushdownAutomaton: Automaton = {
+    states: [],
+    alphabet: [],
+    transitions: {},
+    initialState: '',
+    acceptanceStates: [],
+}

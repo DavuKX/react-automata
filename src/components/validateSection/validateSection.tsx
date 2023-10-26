@@ -6,18 +6,22 @@ import {speak, validateString} from "@/components/validateSection/helpers";
 
 interface ValidateSectionProps {
     inputString: string;
-    validationSpeed: number;
     onFinishedValidation: (word: string, result: string) => void;
-    onStateChanged: (currentState: string, newState: string) => void
 }
 
-const ValidateSection: React.FC<ValidateSectionProps> = ({inputString, validationSpeed, onFinishedValidation, onStateChanged}) => {
+const ValidateSection: React.FC<ValidateSectionProps> = ({inputString, onFinishedValidation}) => {
     const {t} = useTranslation();
     const [validInputMessageVisible, setValidInputMessageVisible] = useState(false);
 
-    const validateAndSpeak = async (inputString: string, t: (key: string) => string, validationSpeed: number, onStateChanged: (currentState: string, newState: string) => void): Promise<string> => {
-        const isValid = validateString(inputString, validationSpeed, onStateChanged);
-        const message = await isValid ? 'accept' : 'reject';
+    const validateAndSpeak = async (inputString: string, t: (key: string) => string): Promise<string> => {
+        const r = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + '/api/validate-automata', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+
+        }).then((res) => res.json());
+        const message = r.result ? 'accept' : 'reject';
         speak(t(message));
         return message;
     };
@@ -25,7 +29,7 @@ const ValidateSection: React.FC<ValidateSectionProps> = ({inputString, validatio
     const handleValidate = async () => {
         if (inputString && inputString.length > 0) {
             setValidInputMessageVisible(false);
-            const validationResult = await validateAndSpeak(inputString, t, validationSpeed, onStateChanged);
+            const validationResult = await validateAndSpeak(inputString, t);
             onFinishedValidation(inputString, validationResult);
         } else {
             setValidInputMessageVisible(true);

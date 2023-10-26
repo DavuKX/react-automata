@@ -1,21 +1,16 @@
 "use client"
-import React, {useEffect} from 'react';
+import React from 'react';
 // @ts-ignore
 import CytoscapeComponent from "react-cytoscapejs";
-import {Paper, hexToRgb} from "@mui/material";
+import {Paper} from "@mui/material";
+import {layout, mainColor, secondaryColor, styleSheet} from "@/components/automatonGraph/graphStyles";
 
 interface AutomatonGraphProps {
     graphData: GraphData;
-    state: {
-        currentState: string,
-        newState: string
-    }
 }
 
-const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, state}) => {
+const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData}) => {
     const graphRef = React.useRef<any>(null);
-    const mainColor = "#1976D2";
-    const secondaryColor = "#6400b4";
 
     const applyStylesToNodes = (nodes: any, state: any) => {
         nodes.forEach((node: any) => {
@@ -50,92 +45,23 @@ const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, state}) => {
         });
     };
 
-
-    useEffect(() => {
-        if (graphRef.current) {
-            applyStylesToNodes(graphRef.current.nodes(), state);
-            applyStylesToEdges(graphRef.current.edges(), state);
-        }
-    }, [state])
-
-    const layout = {
-        name: "breadthfirst",
-        padding: 10,
-        spacingFactor: 3.5,
-        animate: true,
-        animationDuration: 1000,
-        animationEasing: "ease-in-out",
-        fit: true,
-        nodeDimensionsIncludeLabels: true,
-        avoidOverlap: true,
-    };
-
-    const styleSheet = [
-        {
-            selector: "node[label]",
-            style: {
-                label: "data(label)",
-                "text-halign": "center",
-                "text-valign": "center",
-                "border-color": mainColor,
-                "border-width": 3,
-                "background-color": "#FFFFFF",
-                "width": "120px",
-                "height": "120px",
-                "font-size": "40px",
-                "font-weight": "bold",
-                "shape": "ellipse",
-            }
-        },
-        {
-            selector: "edge[label]",
-            style: {
-                label: "data(label)",
-                "curve-style": "bezier",
-                "target-arrow-shape": "triangle",
-                "line-color": mainColor,
-                "target-arrow-color": mainColor,
-                "font-size": 60,
-                "width": 4,
-                "arrow-scale": 4,
-            }
-        },
-        {
-            selector: 'node[final]',
-            style: {
-                "border-color": mainColor,
-                "border-width": 3,
-                "border-style": "double",
-                "background-color": "#C0E0FF",
-            }
-        },
-        {
-            selector: "node#start",
-            style: {
-                "background-color": "#d9ff8d",
-            }
-        },
-        
-    ];
-    
-
     return (
         <Paper elevation={4}>
             <div className="p-4">
-                    <CytoscapeComponent
-                        elements={CytoscapeComponent.normalizeElements(graphData)}
-                        style={{width: "100%", height: "400px"}}
-                        zoomingEnabled={true}
-                        maxZoom={3}
-                        minZoom={0.1}
-                        autounselectify={false}
-                        boxSelectionEnabled={true}
-                        layout={layout}
-                        stylesheet={styleSheet}
-                        cy={(cy: any) => {
-                            graphRef.current = cy;
-                        }}
-                    />
+                <CytoscapeComponent
+                    elements={CytoscapeComponent.normalizeElements(graphData)}
+                    style={{width: "100%", height: "400px"}}
+                    zoomingEnabled={true}
+                    maxZoom={3}
+                    minZoom={0.1}
+                    autounselectify={false}
+                    boxSelectionEnabled={true}
+                    layout={layout}
+                    stylesheet={styleSheet}
+                    cy={(cy: any) => {
+                        graphRef.current = cy;
+                    }}
+                />
             </div>
         </Paper>
     );
