@@ -89,9 +89,52 @@ export const finiteAutomatonGraphData = {
 }
 
 export const pushdownAutomatonGraphData = {
-    nodes: [],
-    edges: []
+    nodes: [
+        {data: {id: "start", label: "start"}},
+        {data: {id: "p", label: "p"}},
+        {data: {id: "q", label: "q"}},
+        {data: {id: "r", label: "r", final: "true"}}
+    ],
+    edges: [
+        {
+            data: {source: "start", target: "p", label: ""}
+        },
+        {
+            data: {source: "p", target: "p", label: "b,b/bb"}
+        },
+        {
+            data: {source: "p", target: "p", label: "a,b/ba"}
+        },
+        {
+            data: {source: "p", target: "p", label: "b,a/ab"}
+        },
+        {
+            data: {source: "p", target: "p", label: "a,a/aa"}
+        },
+        {
+            data: {source: "p", target: "p", label: "b,#/#b"}
+        },
+        {
+            data: {source: "p", target: "p", label: "a,#/#a"}
+        },
+        {
+            data: {source: "p", target: "q", label: "b,b/λ"}
+        },
+        {
+            data: {source: "p", target: "q", label: "a,a/λ"}
+        },
+        {
+            data: {source: "q", target: "q", label: "a,a/λ"}
+        },
+        {
+            data: {source: "q", target: "q", label: "b,b/λ"}
+        },
+        {
+            data: {source: "q", target: "r", label: "λ,#/#"}
+        }
+    ]
 }
+
 
 export const finiteAutomaton: Automaton = {
     states: ['start', 'q0', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13'],

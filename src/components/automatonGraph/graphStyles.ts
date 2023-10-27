@@ -28,6 +28,10 @@ export const styleSheet = [
             "font-size": 60,
             "width": 4,
             "arrow-scale": 4,
+            "control-point-step-size": 300,
+            "control-point-weight": 0.5,
+            "control-point-distances": 200,
+            "loop-direction": "0deg",
         }
     },
     {
