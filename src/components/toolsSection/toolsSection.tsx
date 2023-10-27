@@ -17,14 +17,17 @@ import ValidateSection from "@/components/validateSection/validateSection";
 import FormControl from '@mui/material/FormControl';
 import {AutomatonTypeContext} from "@/Contexts/automatonTypeContext";
 import {AutomatonTypes} from "@/types/automaton";
+import {validationResultType} from "@/types/validationResultType";
 
 interface ToolsSectionProps {
     onWordsChanged: (words: string) => void;
     inputWords: string,
-    onFinishedValidation: (word: string, result: string) => void;
+    onFinishedValidation: (result: validationResultType) => void;
+    onAutomatonTypeChanged: (automatonType: AutomatonTypes) => void;
+    onAutomatonSpeedChanged: (automatonSpeed: number[] | number) => void;
  }
 
-const ToolsSection: React.FC<ToolsSectionProps> = ({onWordsChanged, inputWords, onFinishedValidation}) => {
+const ToolsSection: React.FC<ToolsSectionProps> = ({onWordsChanged, inputWords, onFinishedValidation, onAutomatonTypeChanged, onAutomatonSpeedChanged}) => {
     const [automatonSpeed, setAutomatonSpeed] = useState(50)
     const [automatonType, setAutomatonType] = useState<AutomatonTypes>("finite")
 
@@ -36,11 +39,14 @@ const ToolsSection: React.FC<ToolsSectionProps> = ({onWordsChanged, inputWords, 
     const handleAutomatonSpeedChange = (e: Event, newValue: number | number[]) => {
         if (typeof newValue === 'number')
             setAutomatonSpeed(newValue)
+            onAutomatonSpeedChanged(newValue)
     };
 
-    const getValidationSpeed = () => 500 / (automatonSpeed / 100);
     const {t} = useTranslation();
-    const onChangeAutomatonType = (e: SelectChangeEvent) => setAutomatonType(e.target.value as AutomatonTypes);
+    const onChangeAutomatonType = (e: SelectChangeEvent) => {
+        setAutomatonType(e.target.value as AutomatonTypes)
+        onAutomatonTypeChanged(e.target.value as AutomatonTypes)
+    };
 
 
     return (

@@ -1,5 +1,5 @@
 export const mainColor = "#1976D2";
-export const secondaryColor = "#6400b4";
+export const secondaryColor = "#b40006";
 export const styleSheet = [
     {
         selector: "node[label]",
