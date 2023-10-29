@@ -1,4 +1,5 @@
 import {Automaton} from "@/types/automaton";
+import { AutomatonPushDown } from "@/types/automaton";
 
 export const finiteAutomatonGraphData = {
     nodes: [
@@ -156,10 +157,30 @@ export const finiteAutomaton: Automaton = {
     acceptanceStates: ['q2', 'q3', 'q5', 'q6', 'q8', 'q9', 'q11', 'q12'],
 };
 
-export const pushdownAutomaton: Automaton = {
-    states: [],
-    alphabet: [],
-    transitions: {},
-    initialState: '',
-    acceptanceStates: [],
+export const pushdownAutomaton: AutomatonPushDown = {
+    states: ['start', 'p', 'q', 'r'],
+    alphabet: ['a','b'],
+    transitions: {
+        p: {
+            a: [{ next_state: 'p', pop_symbol: '#', push_symbols: ['#', 'a']}, 
+                { next_state: 'p', pop_symbol: 'a', push_symbols: ['a', 'a']},
+                { next_state: 'p', pop_symbol: 'b', push_symbols: ['b', 'a']},
+                { next_state: 'q', pop_symbol: 'a', push_symbols: ['λ']}],
+            b: [{ next_state: 'p', pop_symbol: '#', push_symbols: ['#', 'b']},
+                { next_state: 'p', pop_symbol: 'a', push_symbols: ['a', 'b']},
+                { next_state: 'p', pop_symbol: 'b', push_symbols: ['b', 'b']},
+                { next_state: 'q', pop_symbol: 'b', push_symbols: ['λ']}],
+        },
+        q: {
+            a: [{ next_state: 'q', pop_symbol: 'a', push_symbols: ['λ']}],
+            b: [{ next_state: 'q', pop_symbol: 'b', push_symbols: ['λ']}], 
+            λ: [{ next_state: 'r', pop_symbol: '#', push_symbols: ['#']}],
+        },
+    },    
+    // transitions: {
+    //     p: {'a,#/#a': 'p', 'b,#/#b': 'p', 'a,a/aa': 'p', 'b,b/bb': 'p', 'a,b/ba': 'p', 'b,a/ab': 'p', 'a,a/λ': 'q', 'b,b/λ': 'q'},
+    //     q: {'a,a/λ': 'q', 'b,b/λ': 'q', 'λ,#/#' : 'r'}
+    // },
+    initialState: 'p',
+    acceptanceStates: ['r'],
 }
