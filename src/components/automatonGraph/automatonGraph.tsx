@@ -39,6 +39,10 @@ const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, validationRes
         }
     }, [validationResult]);
 
+    useEffect(() => {
+        graphRef.current.layout(layout).run();
+    }, [graphData])
+
 
     const applyStylesToNodes = (nodes: any, initialState: string, finalState: string) => {
         nodes.forEach((node: any) => {
