@@ -5,6 +5,7 @@ import '@/i18n';
 import {AutomatonTypeContext} from "@/Contexts/automatonTypeContext";
 import {finiteAutomaton, pushdownAutomaton} from "@/constans";
 import {validationResultType} from "@/types/validationResultType";
+import { useCookies } from 'next-client-cookies';
 
 interface ValidateSectionProps {
     inputString: string;
@@ -20,6 +21,7 @@ const ValidateSection: React.FC<ValidateSectionProps> = ({inputString, onFinishe
     const {t} = useTranslation();
     const [validInputMessageVisible, setValidInputMessageVisible] = useState(false);
     const automatonType = useContext(AutomatonTypeContext);
+    const cookies = useCookies();
 
     const validateWord = async (inputString: string): Promise<validationResultType> => {
         return await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + '/api/validate-automaton', {
@@ -30,7 +32,8 @@ const ValidateSection: React.FC<ValidateSectionProps> = ({inputString, onFinishe
             body: JSON.stringify({
                 automaton_data: automatonGraphData[automatonType.state],
                 automaton_type: automatonType.state,
-                word: inputString
+                word: inputString,
+                uuid: cookies.get('uuid')
             })
 
         }).then((res) => res.json() as Promise<validationResultType>);

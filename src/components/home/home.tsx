@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import NavBar from "@/components/navBar/navBar";
 import Grid from "@mui/material/Unstable_Grid2";
 import AutomatonGraph from "@/components/automatonGraph/automatonGraph";
@@ -7,6 +7,9 @@ import ToolsSection from "@/components/toolsSection/toolsSection";
 import {ValidationHistoryComponent} from "@/components/validationHistoryComponent/validationHistoryComponent";
 import {validationResultType} from "@/types/validationResultType";
 import {AutomatonTypes} from "@/types/automaton";
+import {v4 as uuidv4} from 'uuid';
+import { useCookies } from 'next-client-cookies';
+import {ValidationEntry} from "@/Interfaces/validationEntry";
 
 const automatonGraphData = {
     finite: finiteAutomatonGraphData,
@@ -18,6 +21,18 @@ export default function Home(): JSX.Element {
     const [graphData, setGraphData] = useState(finiteAutomatonGraphData);
     const [validationResult, setValidationResult] = useState<validationResultType>({result: false, path: [], word: ''} as validationResultType);
     const [automatonSpeed, setAutomatonSpeed] = useState<number[] | number>(50)
+    const [validationHistory, setValidationHistory] = useState<ValidationEntry[]>([] as ValidationEntry[])
+    const cookies = useCookies();
+
+    useEffect(() => {
+        if (! cookies.get('uuid')) {
+            cookies.set('uuid', uuidv4())
+        }
+    }, [cookies])
+
+    useEffect(() => {
+        loadValidations().then(r => r)
+    }, [])
 
     const handleWordsChange = (words: string): void => {
         setInputWords(words);
@@ -25,10 +40,25 @@ export default function Home(): JSX.Element {
 
     const handleFinishedValidation = (validationResult: validationResultType) => {
         setValidationResult(validationResult)
+        loadValidations().then(r => r)
     }
 
     const handleAutomatonTypeChanged = (automatonType: AutomatonTypes) => {
         setGraphData(automatonGraphData[automatonType])
+    }
+
+    const loadValidations = async () => {
+        const urlParams = new URLSearchParams([['uuid', cookies.get('uuid') as string]]);
+
+        const url = process.env.NEXT_PUBLIC_BACKEND_URL + '/api/validations?' + urlParams.toString();
+        const validations = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then((res) => res.json() as Promise<ValidationEntry[]>);
+
+        setValidationHistory(validations)
     }
 
     return (
@@ -52,7 +82,7 @@ export default function Home(): JSX.Element {
                     />
                 </Grid>
                 <Grid lg={6} md={12} xs={12}>
-                    <ValidationHistoryComponent history={[]}/>
+                    <ValidationHistoryComponent history={validationHistory}/>
                 </Grid>
             </Grid>
         </div>

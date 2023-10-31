@@ -16,7 +16,7 @@ export function ValidationHistoryComponent({history}: ValidationHistoryProps) {
             <List>
                 {history.map((entry, index) => (
                     <ListItem key={index} className={t(entry.result) === t('reject') ? "bg-red-400" : "bg-green-400"}>
-                        <strong className="pr-1">{entry.input}</strong> - {t(entry.result)}
+                        <strong className="pr-1">{entry.word}</strong> - {t(entry.result)}
                     </ListItem>
                 ))}
             </List>

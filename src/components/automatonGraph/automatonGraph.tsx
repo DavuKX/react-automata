@@ -26,12 +26,12 @@ const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, validationRes
 
             const applyStylesWithDelay = async () => {
                 for (const state of validationResult.path) {
+                    applyStylesToNodes(nodes, state.initial_state, state.final_state);
+                    applyStylesToEdges(edges, state.initial_state, state.final_state)
+
                     await new Promise((resolve) => {
                         setTimeout(resolve, getValidationSpeed());
                     });
-
-                    applyStylesToNodes(nodes, state.initial_state, state.final_state);
-                    applyStylesToEdges(edges, state.initial_state, state.final_state)
                 }
             };
 
