@@ -33,6 +33,7 @@ const ValidateSection: React.FC<ValidateSectionProps> = ({inputString, onFinishe
                 automaton_data: automatonGraphData[automatonType.state],
                 automaton_type: automatonType.state,
                 word: inputString,
+                path: [],
                 uuid: cookies.get('uuid')
             })
 

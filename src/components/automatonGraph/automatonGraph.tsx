@@ -1,5 +1,5 @@
 "use client"
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 // @ts-ignore
 import CytoscapeComponent from "react-cytoscapejs";
 import {Paper} from "@mui/material";
@@ -7,10 +7,16 @@ import {layout, mainColor, secondaryColor, styleSheet} from "@/components/automa
 import {validationResultType} from "@/types/validationResultType";
 import {speak} from "@/components/validateSection/helpers";
 import {useTranslation} from "react-i18next";
+import {Fade} from 'react-awesome-reveal';
 
 interface AutomatonGraphProps {
     graphData: GraphData;
     validationResult: validationResultType;
+    automatonSpeed: number;
+}
+
+interface AnimatedStackProps {
+    path: { stack: string[] }[];
     automatonSpeed: number;
 }
 
@@ -99,4 +105,48 @@ const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, validationRes
     );
 }
 
+const AnimatedStack: React.FC<AnimatedStackProps> = ({ path, automatonSpeed }) => {
+    const [animationStack, setAnimationStack] = useState<string[]>([]);
+
+    useEffect(() => {
+        if (path) {
+          animateStackOperations();
+        }
+      }, [path]);
+
+    const getStackAnimationSpeed = () => {
+        return 500 / (automatonSpeed / 100);
+    };
+
+    const animateStackOperations = () => {
+        if (path) {
+            let index = 0;
+            const interval = setInterval(() => {
+                const operation = path?.[index];
+    
+                if (operation && operation.stack) {
+                    setAnimationStack(operation.stack);
+                }
+    
+                index++;
+    
+                if (index >= path.length || !operation) {
+                    clearInterval(interval);
+                }
+            }, getStackAnimationSpeed());
+        }
+    };
+    
+    return (
+        <div className="stack-container">
+            {animationStack.map((symbol, index) => (
+                <Fade key={index} delay={index * getStackAnimationSpeed()}>
+                    <div className="stack-symbol">{symbol}</div>
+                </Fade>
+            ))}
+        </div>
+    );
+};
+
 export default AutomatonGraph;
+export {AnimatedStack};
