@@ -57,7 +57,10 @@ const ToolsSection: React.FC<ToolsSectionProps> = ({onWordsChanged, inputWords, 
                         <Grid item xs={12}>
                             <Grid container>
                                 <Grid item xs={6}>
-                                    <Typography className='pb-4' fontSize={18} fontWeight={"bold"}>{t(`${automatonType}AutomatonRE`)}<sup>4</sup></Typography>
+                                    <Typography className='pb-4' fontSize={18} fontWeight={"bold"} style={{marginBottom: '18px'}}>
+                                        {automatonType === 'finite' && `${t(`${automatonType}AutomatonRE`)}`}
+                                        {automatonType === 'pushdown' && <div style={{height: '24px'}}></div>}
+                                    </Typography>
                                 </Grid>
                                 <Grid item xs={6}>
                                     <FormControl fullWidth>
@@ -101,7 +104,7 @@ const ToolsSection: React.FC<ToolsSectionProps> = ({onWordsChanged, inputWords, 
                         </Grid>
                         <Grid item xs={12}>
                             <ValidateSection
-                                inputString={inputWords}
+                                inputString={inputWords.toLowerCase()}
                                 onFinishedValidation={onFinishedValidation}
                             />
                         </Grid>
