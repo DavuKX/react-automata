@@ -18,7 +18,6 @@ import FormControl from '@mui/material/FormControl';
 import {AutomatonTypeContext} from "@/Contexts/automatonTypeContext";
 import {AutomatonTypes} from "@/types/automaton";
 import {validationResultType} from "@/types/validationResultType";
-import {AnimatedStack} from '@/components/automatonGraph/automatonGraph';
 
 interface ToolsSectionProps {
     onWordsChanged: (words: string) => void;
@@ -87,11 +86,6 @@ const ToolsSection: React.FC<ToolsSectionProps> = ({onWordsChanged, inputWords, 
                                             <MenuItem value="pushdown">{t("pushdownAutomatonLabel")}</MenuItem>
                                         </Select>
                                     </FormControl>
-                                    <Grid item xs={12}>
-                                        {isPushdownAutomaton && automatonType === 'pushdown' && (
-                                            <AnimatedStack path={stackOperations} automatonSpeed={automatonSpeed} />
-                                        )}
-                                    </Grid>
                                 </Grid>
                             </Grid>
                             <TextField

@@ -2,7 +2,7 @@
 import React, {useState, useEffect} from 'react';
 // @ts-ignore
 import CytoscapeComponent from "react-cytoscapejs";
-import {Paper} from "@mui/material";
+import {List, Paper} from "@mui/material";
 import {layout, mainColor, secondaryColor, styleSheet} from "@/components/automatonGraph/graphStyles";
 import {validationResultType} from "@/types/validationResultType";
 import {speak} from "@/components/validateSection/helpers";
@@ -23,6 +23,7 @@ const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, validationRes
     const graphRef = React.useRef<any>(null);
     const getValidationSpeed = () => 500 / (automatonSpeed / 100);
     const {t} = useTranslation();
+    const [currentStack, setCurrentStack] = useState<string[]>([]);
     
     useEffect(() => {
         if (validationResult.word) {
@@ -32,7 +33,8 @@ const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, validationRes
             const applyStylesWithDelay = async () => {
                 for (const state of validationResult.path) {
                     applyStylesToNodes(nodes, state.initial_state, state.final_state);
-                    applyStylesToEdges(edges, state.initial_state, state.final_state, state.char, state.stack)
+                    applyStylesToEdges(edges, state.initial_state, state.final_state, state.char, state.stack);
+                    setCurrentStack(state.stack.reverse());
 
                     await new Promise((resolve) => {
                         setTimeout(resolve, getValidationSpeed());
@@ -66,7 +68,7 @@ const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, validationRes
         });
     };
 
-    const applyStylesToEdges = (edges: any, initialState: string, finalState: string, char: string, stack:string ) => {
+    const applyStylesToEdges = (edges: any, initialState: string, finalState: string, char: string, stack:Array<string> ) => {
         edges.forEach((edge: any) => {
             const sourceNode = edge.source();
             const targetNode = edge.target();
@@ -108,52 +110,19 @@ const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, validationRes
                     }}
                 />
             </div>
+            {currentStack && (
+                <List>
+                    {currentStack.map((stackItem, index) => (
+                        <div key={index} className="flex justify-center items-center">
+                            <div className="w-8 h-8 rounded-full bg-gray-200 flex justify-center items-center">
+                                <span className="text-sm">{stackItem}</span>
+                            </div>
+                        </div>
+                    ))}
+                </List>
+            )}
         </Paper>
-    );
-}
-
-const AnimatedStack: React.FC<AnimatedStackProps> = ({ path, automatonSpeed }) => {
-    const [animationStack, setAnimationStack] = useState<string[]>([]);
-
-    useEffect(() => {
-        if (path) {
-          animateStackOperations();
-        }
-      }, [path]);
-
-    const getStackAnimationSpeed = () => {
-        return 500 / (automatonSpeed / 100);
-    };
-
-    const animateStackOperations = () => {
-        if (path) {
-            let index = 0;
-            const interval = setInterval(() => {
-                const operation = path?.[index];
-    
-                if (operation && operation.stack) {
-                    setAnimationStack(operation.stack);
-                }
-    
-                index++;
-    
-                if (index >= path.length || !operation) {
-                    clearInterval(interval);
-                }
-            }, getStackAnimationSpeed());
-        }
-    };
-    
-    return (
-        <div className="stack-container">
-            {animationStack.map((symbol, index) => (
-                <Fade key={index} delay={index * getStackAnimationSpeed()}>
-                    <div className="stack-symbol">{symbol}</div>
-                </Fade>
-            ))}
-        </div>
     );
 };
 
 export default AutomatonGraph;
-export {AnimatedStack};

@@ -2,7 +2,7 @@ export type PathObjectType = {
     initial_state: string;
     final_state: string;
     char: string;
-    stack: string;
+    stack: Array<string>;
 };
 
 export type validationResultType = {
