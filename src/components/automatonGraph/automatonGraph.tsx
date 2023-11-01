@@ -7,6 +7,7 @@ import {layout, mainColor, secondaryColor, styleSheet} from "@/components/automa
 import {validationResultType} from "@/types/validationResultType";
 import {speak} from "@/components/validateSection/helpers";
 import {useTranslation} from "react-i18next";
+import {AutomatonTypes} from "@/types/automaton";
 
 interface AutomatonGraphProps {
     graphData: GraphData;
@@ -18,7 +19,7 @@ const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, validationRes
     const graphRef = React.useRef<any>(null);
     const getValidationSpeed = () => 500 / (automatonSpeed / 100);
     const {t} = useTranslation();
-
+    
     useEffect(() => {
         if (validationResult.word) {
             const nodes = graphRef.current.nodes();
@@ -27,7 +28,7 @@ const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, validationRes
             const applyStylesWithDelay = async () => {
                 for (const state of validationResult.path) {
                     applyStylesToNodes(nodes, state.initial_state, state.final_state);
-                    applyStylesToEdges(edges, state.initial_state, state.final_state)
+                    applyStylesToEdges(edges, state.initial_state, state.final_state, state.char, state.stack)
 
                     await new Promise((resolve) => {
                         setTimeout(resolve, getValidationSpeed());
@@ -47,6 +48,7 @@ const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, validationRes
     const applyStylesToNodes = (nodes: any, initialState: string, finalState: string) => {
         nodes.forEach((node: any) => {
             if (node.data().label === initialState || node.data().label === finalState) {
+
                 node.style({
                     "border-color": secondaryColor,
                     "border-width": "6px",
@@ -60,10 +62,16 @@ const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, validationRes
         });
     };
 
-    const applyStylesToEdges = (edges: any, initialState: string, finalState: string) => {
+    const applyStylesToEdges = (edges: any, initialState: string, finalState: string, char: string, stack:string ) => {
         edges.forEach((edge: any) => {
-            const connectedNodes = edge.connectedNodes();
-            if (connectedNodes[0].data().label === initialState && connectedNodes[1].data().label === finalState) {
+            const sourceNode = edge.source();
+            const targetNode = edge.target();
+
+            if (
+                ( edge.data().source === initialState && edge.data().target === finalState 
+                && (char === edge.data().label[0] || char === null && edge.data().label[0] === "λ" && stack[stack.length - 1] === edge.data().label[2])
+                )
+            ) {
                 edge.style({
                     "line-color": secondaryColor,
                     "target-arrow-color": secondaryColor,
@@ -76,13 +84,14 @@ const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, validationRes
             }
         });
     };
+    
 
     return (
         <Paper elevation={4}>
             <div className="p-4">
                 <CytoscapeComponent
                     elements={CytoscapeComponent.normalizeElements(graphData)}
-                    style={{width: "100%", height: "400px"}}
+                    style={{width: "90%", height: "400px"}}
                     zoomingEnabled={true}
                     maxZoom={3}
                     minZoom={0.1}
