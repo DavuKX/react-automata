@@ -165,22 +165,18 @@ export const pushdownAutomaton: AutomatonPushDown = {
             a: [{ next_state: 'p', pop_symbol: '#', push_symbols: ['#', 'a']}, 
                 { next_state: 'p', pop_symbol: 'a', push_symbols: ['a', 'a']},
                 { next_state: 'p', pop_symbol: 'b', push_symbols: ['b', 'a']},
-                { next_state: 'q', pop_symbol: 'a', push_symbols: ['λ']}],
+                { next_state: 'q', pop_symbol: 'a', push_symbols: []}],
             b: [{ next_state: 'p', pop_symbol: '#', push_symbols: ['#', 'b']},
                 { next_state: 'p', pop_symbol: 'a', push_symbols: ['a', 'b']},
                 { next_state: 'p', pop_symbol: 'b', push_symbols: ['b', 'b']},
-                { next_state: 'q', pop_symbol: 'b', push_symbols: ['λ']}],
+                { next_state: 'q', pop_symbol: 'b', push_symbols: []}],
         },
         q: {
-            a: [{ next_state: 'q', pop_symbol: 'a', push_symbols: ['λ']}],
-            b: [{ next_state: 'q', pop_symbol: 'b', push_symbols: ['λ']}], 
+            a: [{ next_state: 'q', pop_symbol: 'a', push_symbols: []}],
+            b: [{ next_state: 'q', pop_symbol: 'b', push_symbols: []}],
             λ: [{ next_state: 'r', pop_symbol: '#', push_symbols: ['#']}],
         },
     },    
-    // transitions: {
-    //     p: {'a,#/#a': 'p', 'b,#/#b': 'p', 'a,a/aa': 'p', 'b,b/bb': 'p', 'a,b/ba': 'p', 'b,a/ab': 'p', 'a,a/λ': 'q', 'b,b/λ': 'q'},
-    //     q: {'a,a/λ': 'q', 'b,b/λ': 'q', 'λ,#/#' : 'r'}
-    // },
     initialState: 'p',
     acceptanceStates: ['r'],
-}
+};
