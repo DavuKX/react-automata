@@ -18,6 +18,7 @@ import FormControl from '@mui/material/FormControl';
 import {AutomatonTypeContext} from "@/Contexts/automatonTypeContext";
 import {AutomatonTypes} from "@/types/automaton";
 import {validationResultType} from "@/types/validationResultType";
+import {AnimatedStack} from '@/components/automatonGraph/automatonGraph';
 
 interface ToolsSectionProps {
     onWordsChanged: (words: string) => void;
@@ -25,8 +26,13 @@ interface ToolsSectionProps {
     onFinishedValidation: (result: validationResultType) => void;
     onAutomatonTypeChanged: (automatonType: AutomatonTypes) => void;
     onAutomatonSpeedChanged: (automatonSpeed: number[] | number) => void;
- }
+    automatonType: AutomatonTypes;
+}
 
+interface StackOperation {
+    stack: string[];
+}
+  
 const ToolsSection: React.FC<ToolsSectionProps> = ({onWordsChanged, inputWords, onFinishedValidation, onAutomatonTypeChanged, onAutomatonSpeedChanged}) => {
     const [automatonSpeed, setAutomatonSpeed] = useState(50)
     const [automatonType, setAutomatonType] = useState<AutomatonTypes>("finite")
@@ -42,10 +48,14 @@ const ToolsSection: React.FC<ToolsSectionProps> = ({onWordsChanged, inputWords, 
             onAutomatonSpeedChanged(newValue)
     };
 
+    const [isPushdownAutomaton, setIsPushdownAutomaton] = useState(false);
+    const [stackOperations] = useState<StackOperation[]>([]);
+
     const {t} = useTranslation();
     const onChangeAutomatonType = (e: SelectChangeEvent) => {
         setAutomatonType(e.target.value as AutomatonTypes)
         onAutomatonTypeChanged(e.target.value as AutomatonTypes)
+        setIsPushdownAutomaton(e.target.value === 'pushdown');
     };
 
 
@@ -77,6 +87,11 @@ const ToolsSection: React.FC<ToolsSectionProps> = ({onWordsChanged, inputWords, 
                                             <MenuItem value="pushdown">{t("pushdownAutomatonLabel")}</MenuItem>
                                         </Select>
                                     </FormControl>
+                                    <Grid item xs={12}>
+                                        {isPushdownAutomaton && automatonType === 'pushdown' && (
+                                            <AnimatedStack path={stackOperations} automatonSpeed={automatonSpeed} />
+                                        )}
+                                    </Grid>
                                 </Grid>
                             </Grid>
                             <TextField
