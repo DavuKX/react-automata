@@ -52,7 +52,7 @@ const ValidateSection: React.FC<ValidateSectionProps> = ({inputString, onFinishe
 
     return (
         <>
-            <div className="p-6">
+            <div>
                 <Button variant="outlined" fullWidth onClick={handleValidate}>
                     {t('validate')}
                 </Button>

@@ -1,3 +1,4 @@
+"use client"
 import React from 'react';
 import { useState } from 'react';
 import { LanguageIcon } from "@heroicons/react/24/solid";
@@ -22,7 +23,7 @@ const NavBar = (props: Props) => {
     };
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1, height: '70px' }}>
             <AppBar position="static">
                 <Toolbar>
                     <IconButton

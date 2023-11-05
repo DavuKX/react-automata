@@ -2,11 +2,11 @@
 import React, {useState, useEffect} from 'react';
 // @ts-ignore
 import CytoscapeComponent from "react-cytoscapejs";
-import {List, Paper} from "@mui/material";
 import {layout, mainColor, secondaryColor, styleSheet} from "@/components/automatonGraph/graphStyles";
 import {validationResultType} from "@/types/validationResultType";
 import {speak} from "@/components/validateSection/helpers";
 import {useTranslation} from "react-i18next";
+import Grid from "@mui/material/Grid";
 
 interface AutomatonGraphProps {
     graphData: GraphData;
@@ -93,35 +93,22 @@ const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, validationRes
     
 
     return (
-        <Paper elevation={4}>
-            <div className="p-4">
-                <CytoscapeComponent
-                    elements={CytoscapeComponent.normalizeElements(graphData)}
-                    style={{width: "90%", height: "400px"}}
-                    zoomingEnabled={true}
-                    maxZoom={3}
-                    minZoom={0.1}
-                    autounselectify={false}
-                    boxSelectionEnabled={true}
-                    layout={layout}
-                    stylesheet={styleSheet}
-                    cy={(cy: any) => {
-                        graphRef.current = cy;
-                    }}
-                />
-            </div>
-            {currentStack && (
-                <List>
-                    {currentStack.map((stackItem, index) => (
-                        <div key={index} className="flex justify-center items-center">
-                            <div className="w-8 h-8 rounded-full bg-gray-200 flex justify-center items-center">
-                                <span className="text-sm">{stackItem}</span>
-                            </div>
-                        </div>
-                    ))}
-                </List>
-            )}
-        </Paper>
+        <Grid container>
+            <CytoscapeComponent
+                elements={CytoscapeComponent.normalizeElements(graphData)}
+                style={{width: "100%", height: "600px"}}
+                zoomingEnabled={true}
+                maxZoom={3}
+                minZoom={0.1}
+                autounselectify={false}
+                boxSelectionEnabled={true}
+                layout={layout}
+                stylesheet={styleSheet}
+                cy={(cy: any) => {
+                    graphRef.current = cy;
+                }}
+            />
+        </Grid>
     );
 };
 

@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import NavBar from "@/components/navBar/navBar";
-import Grid from "@mui/material/Unstable_Grid2";
+import Grid from '@mui/material/Grid';
 import AutomatonGraph from "@/components/automatonGraph/automatonGraph";
 import {finiteAutomatonGraphData, pushdownAutomatonGraphData} from "@/constans";
 import ToolsSection from "@/components/toolsSection/toolsSection";
@@ -10,6 +9,7 @@ import {AutomatonTypes} from "@/types/automaton";
 import {v4 as uuidv4} from 'uuid';
 import {useCookies} from 'next-client-cookies';
 import {ValidationEntry} from "@/Interfaces/validationEntry";
+import {Box, Paper} from "@mui/material";
 
 const automatonGraphData = {
     finite: finiteAutomatonGraphData,
@@ -66,29 +66,49 @@ export default function Home(): JSX.Element {
     }
 
     return (
-        <div className='w-full bg-white'>
-            <NavBar/>
-            <Grid container spacing={2} style={{margin: '0 20px'}}>
-                <Grid xs={12}>
-                    <AutomatonGraph
-                        graphData={graphData}
-                        validationResult={validationResult}
-                        automatonSpeed={Number(automatonSpeed)}
-                    />
+        <Box
+            sx={{
+                overflow: 'hidden',
+                backgroundColor: '#f5f5f5',
+                padding: '10px',
+                height: 'calc(100vh - 130px)',
+            }}
+        >
+            <Grid
+                container
+                direction="row"
+                justifyContent="space-around"
+                spacing={2}
+                height="100%"
+            >
+                <Grid item md={4} height="100%">
+                    <Paper className="p-4 h-full">
+                        <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <ToolsSection
+                                    onWordsChanged={handleWordsChange}
+                                    inputWords={inputWords}
+                                    onFinishedValidation={handleFinishedValidation}
+                                    onAutomatonTypeChanged={handleAutomatonTypeChanged}
+                                    onAutomatonSpeedChanged={setAutomatonSpeed}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <ValidationHistoryComponent history={validationHistory}/>
+                            </Grid>
+                        </Grid>
+                    </Paper>
                 </Grid>
-                <Grid lg={6} md={12} xs={12}>
-                    <ToolsSection
-                        onWordsChanged={handleWordsChange}
-                        inputWords={inputWords}
-                        onFinishedValidation={handleFinishedValidation}
-                        onAutomatonTypeChanged={handleAutomatonTypeChanged}
-                        onAutomatonSpeedChanged={setAutomatonSpeed}
-                    />
-                </Grid>
-                <Grid lg={6} md={12} xs={12}>
-                    <ValidationHistoryComponent history={validationHistory}/>
+                <Grid item md={8} height="100%">
+                    <Paper className="p-4 h-full">
+                        <AutomatonGraph
+                            graphData={graphData}
+                            validationResult={validationResult}
+                            automatonSpeed={Number(automatonSpeed)}
+                        />
+                    </Paper>
                 </Grid>
             </Grid>
-        </div>
+        </Box>
     );
 };

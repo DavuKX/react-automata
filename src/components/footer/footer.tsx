@@ -4,20 +4,29 @@ import {Box, Container, Link, Paper, Typography} from "@mui/material";
 
 const Footer = () => {
     return (
-        <Box
+        <Paper
             sx={{
-                p: 2,
+                width: '100%',
+                position: 'fixed',
+                bottom: 0,
+                height: '70px',
             }}
-            component="footer"
         >
-            <Container maxWidth="sm">
-                <Typography variant="body2" color="text.secondary" align="center">
-                    {"Copyright © "}
-                    {new Date().getFullYear()}
-                    {" Duván Navarro | Anuarth Rincón | Dania Sarmiento | Universidad del Magdalena"}
-                </Typography>
-            </Container>
-        </Box>
+            <Box
+                sx={{
+                    p: 2,
+                }}
+                component="footer"
+            >
+                <Container maxWidth="sm">
+                    <Typography variant="body2" color="text.secondary" align="center">
+                        {"Copyright © "}
+                        {new Date().getFullYear()}
+                        {" Duván Navarro | Anuarth Rincón | Dania Sarmiento | Universidad del Magdalena"}
+                    </Typography>
+                </Container>
+            </Box>
+        </Paper>
     );
 };
 
