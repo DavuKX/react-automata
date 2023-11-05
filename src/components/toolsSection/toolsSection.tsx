@@ -25,7 +25,6 @@ interface ToolsSectionProps {
     onFinishedValidation: (result: validationResultType) => void;
     onAutomatonTypeChanged: (automatonType: AutomatonTypes) => void;
     onAutomatonSpeedChanged: (automatonSpeed: number[] | number) => void;
-    automatonType: AutomatonTypes;
 }
 
 interface StackOperation {
@@ -47,14 +46,10 @@ const ToolsSection: React.FC<ToolsSectionProps> = ({onWordsChanged, inputWords, 
             onAutomatonSpeedChanged(newValue)
     };
 
-    const [isPushdownAutomaton, setIsPushdownAutomaton] = useState(false);
-    const [stackOperations] = useState<StackOperation[]>([]);
-
     const {t} = useTranslation();
     const onChangeAutomatonType = (e: SelectChangeEvent) => {
         setAutomatonType(e.target.value as AutomatonTypes)
         onAutomatonTypeChanged(e.target.value as AutomatonTypes)
-        setIsPushdownAutomaton(e.target.value === 'pushdown');
     };
 
 

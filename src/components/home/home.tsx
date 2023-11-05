@@ -8,7 +8,7 @@ import {ValidationHistoryComponent} from "@/components/validationHistoryComponen
 import {validationResultType} from "@/types/validationResultType";
 import {AutomatonTypes} from "@/types/automaton";
 import {v4 as uuidv4} from 'uuid';
-import { useCookies } from 'next-client-cookies';
+import {useCookies} from 'next-client-cookies';
 import {ValidationEntry} from "@/Interfaces/validationEntry";
 
 const automatonGraphData = {
@@ -19,13 +19,17 @@ const automatonGraphData = {
 export default function Home(): JSX.Element {
     const [inputWords, setInputWords] = useState('');
     const [graphData, setGraphData] = useState(finiteAutomatonGraphData);
-    const [validationResult, setValidationResult] = useState<validationResultType>({result: false, path: [], word: ''} as validationResultType);
+    const [validationResult, setValidationResult] = useState<validationResultType>({
+        result: false,
+        path: [],
+        word: ''
+    } as validationResultType);
     const [automatonSpeed, setAutomatonSpeed] = useState<number[] | number>(50)
     const [validationHistory, setValidationHistory] = useState<ValidationEntry[]>([] as ValidationEntry[])
     const cookies = useCookies();
 
     useEffect(() => {
-        if (! cookies.get('uuid')) {
+        if (!cookies.get('uuid')) {
             cookies.set('uuid', uuidv4())
         }
     }, [cookies])
