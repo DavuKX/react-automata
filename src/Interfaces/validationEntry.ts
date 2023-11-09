@@ -1,6 +1,6 @@
 export interface ValidationEntry {
-    input: string;
+    uuid: string;
+    word: string;
+    automaton_type: string;
     result: string;
-    timestamp: Date;
 }
-

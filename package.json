@@ -18,16 +18,22 @@
     "i18next-browser-languagedetector": "^7.1.0",
     "i18next-http-backend": "^2.2.2",
     "next": "^13.5.4",
+    "next-client-cookies": "^1.0.6",
     "react": "^18.2.0",
+    "react-awesome-reveal": "^4.2.6",
     "react-cytoscapejs": "^2.0.0",
     "react-dom": "latest",
-    "react-i18next": "^13.2.2"
+    "react-i18next": "^13.2.2",
+    "react-spring": "^9.7.3",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
+    "@types/uuid": "^9.0.6",
     "autoprefixer": "latest",
+    "encoding": "^0.1.13",
     "eslint": "latest",
     "eslint-config-next": "latest",
     "jest": "^29.7.0",

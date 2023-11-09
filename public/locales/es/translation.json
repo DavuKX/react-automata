@@ -1,5 +1,5 @@
 {
-    "title": "Autómata finito",
+    "title": "Autómata",
     "word": "Ingresar palabra",
     "run": "CORRER AUTÓMATA",
     "speed": "Velocidad del autómata",
@@ -8,5 +8,9 @@
     "validate": "Validar palabra",
     "validInput": "Ingrese una palabra válida.",
     "validationHistory": "Historial de validaciones",
-    "re": "Expresión regular: (AA U AB)"
+    "finiteAutomatonRE": "Expresión regular: (AA U AB)",
+    "pushdownAutomatonRE": "Expresión regular: (AA U AB)*",
+    "automatonSelectLabel": "Seleccione un autómata",
+    "finiteAutomatonLabel": "Autómata finito",
+    "pushdownAutomatonLabel": "Autómata de pila"
 }

@@ -2,31 +2,24 @@ import React, {useState} from 'react';
 import {Button} from '@mui/material';
 import {useTranslation} from 'react-i18next';
 import '@/i18n';
-import {speak, validateString} from "@/components/validateSection/helpers";
+import {validationResultType} from "@/types/validationResultType";
+import { useValidationLogic } from './validationLogic';
 
 interface ValidateSectionProps {
     inputString: string;
-    validationSpeed: number;
-    onFinishedValidation: (word: string, result: string) => void;
-    onStateChanged: (currentState: string, newState: string) => void
+    onFinishedValidation: (result: validationResultType) => void;
 }
 
-const ValidateSection: React.FC<ValidateSectionProps> = ({inputString, validationSpeed, onFinishedValidation, onStateChanged}) => {
+const ValidateSection: React.FC<ValidateSectionProps> = ({inputString, onFinishedValidation}) => {
     const {t} = useTranslation();
     const [validInputMessageVisible, setValidInputMessageVisible] = useState(false);
-
-    const validateAndSpeak = async (inputString: string, t: (key: string) => string, validationSpeed: number, onStateChanged: (currentState: string, newState: string) => void): Promise<string> => {
-        const isValid = validateString(inputString, validationSpeed, onStateChanged);
-        const message = await isValid ? 'accept' : 'reject';
-        speak(t(message));
-        return message;
-    };
+    const { validateWord } = useValidationLogic();
 
     const handleValidate = async () => {
         if (inputString && inputString.length > 0) {
             setValidInputMessageVisible(false);
-            const validationResult = await validateAndSpeak(inputString, t, validationSpeed, onStateChanged);
-            onFinishedValidation(inputString, validationResult);
+            const validationResult = await validateWord(inputString);
+            onFinishedValidation(validationResult);
         } else {
             setValidInputMessageVisible(true);
         }
@@ -34,7 +27,7 @@ const ValidateSection: React.FC<ValidateSectionProps> = ({inputString, validatio
 
     return (
         <>
-            <div className="pt-2 text-sm">
+            <div>
                 <Button variant="outlined" fullWidth onClick={handleValidate}>
                     {t('validate')}
                 </Button>

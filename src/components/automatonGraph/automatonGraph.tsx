@@ -1,25 +1,60 @@
 "use client"
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 // @ts-ignore
 import CytoscapeComponent from "react-cytoscapejs";
-import {Paper, hexToRgb} from "@mui/material";
+import {layout, mainColor, secondaryColor, styleSheet} from "@/components/automatonGraph/graphStyles";
+import {validationResultType} from "@/types/validationResultType";
+import {speak} from "@/components/validateSection/helpers";
+import {useTranslation} from "react-i18next";
+import Grid from "@mui/material/Grid";
 
 interface AutomatonGraphProps {
     graphData: GraphData;
-    state: {
-        currentState: string,
-        newState: string
-    }
+    validationResult: validationResultType;
+    automatonSpeed: number;
 }
 
-const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, state}) => {
-    const graphRef = React.useRef<any>(null);
-    const mainColor = "#1976D2";
-    const secondaryColor = "#6400b4";
+interface AnimatedStackProps {
+    path: { stack: string[] }[];
+    automatonSpeed: number;
+}
 
-    const applyStylesToNodes = (nodes: any, state: any) => {
+const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, validationResult, automatonSpeed}) => {
+    const graphRef = React.useRef<any>(null);
+    const getValidationSpeed = () => 500 / (automatonSpeed / 100);
+    const {t} = useTranslation();
+    const [currentStack, setCurrentStack] = useState<string[]>([]);
+    
+    useEffect(() => {
+        if (validationResult.word) {
+            const nodes = graphRef.current.nodes();
+            const edges = graphRef.current.edges();
+
+            const applyStylesWithDelay = async () => {
+                for (const state of validationResult.path) {
+                    applyStylesToNodes(nodes, state.initial_state, state.final_state);
+                    applyStylesToEdges(edges, state.initial_state, state.final_state, state.char, state.stack);
+                    setCurrentStack(state.stack.reverse());
+
+                    await new Promise((resolve) => {
+                        setTimeout(resolve, getValidationSpeed());
+                    });
+                }
+            };
+
+            applyStylesWithDelay().then(() => speak(t(validationResult.result ? 'accept' : 'reject')));
+        }
+    }, [validationResult]);
+
+    useEffect(() => {
+        graphRef.current.layout(layout).run();
+    }, [graphData])
+
+
+    const applyStylesToNodes = (nodes: any, initialState: string, finalState: string) => {
         nodes.forEach((node: any) => {
-            if (node.data().label === state.currentState || node.data().label === state.newState) {
+            if (node.data().label === initialState || node.data().label === finalState) {
+
                 node.style({
                     "border-color": secondaryColor,
                     "border-width": "6px",
@@ -33,10 +68,16 @@ const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, state}) => {
         });
     };
 
-    const applyStylesToEdges = (edges: any, state: any) => {
+    const applyStylesToEdges = (edges: any, initialState: string, finalState: string, char: string, stack:Array<string> ) => {
         edges.forEach((edge: any) => {
-            const connectedNodes = edge.connectedNodes();
-            if (connectedNodes[0].data().label === state.currentState && connectedNodes[1].data().label === state.newState) {
+            const sourceNode = edge.source();
+            const targetNode = edge.target();
+
+            if (
+                ( edge.data().source === initialState && edge.data().target === finalState 
+                && (char === edge.data().label[0] || char === null && edge.data().label[0] === "λ" && stack[stack.length - 1] === edge.data().label[2])
+                )
+            ) {
                 edge.style({
                     "line-color": secondaryColor,
                     "target-arrow-color": secondaryColor,
@@ -49,96 +90,26 @@ const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, state}) => {
             }
         });
     };
-
-
-    useEffect(() => {
-        if (graphRef.current) {
-            applyStylesToNodes(graphRef.current.nodes(), state);
-            applyStylesToEdges(graphRef.current.edges(), state);
-        }
-    }, [state])
-
-    const layout = {
-        name: "breadthfirst",
-        padding: 10,
-        spacingFactor: 3.5,
-        animate: true,
-        animationDuration: 1000,
-        animationEasing: "ease-in-out",
-        fit: true,
-        nodeDimensionsIncludeLabels: true,
-        avoidOverlap: true,
-    };
-
-    const styleSheet = [
-        {
-            selector: "node[label]",
-            style: {
-                label: "data(label)",
-                "text-halign": "center",
-                "text-valign": "center",
-                "border-color": mainColor,
-                "border-width": 3,
-                "background-color": "#FFFFFF",
-                "width": "120px",
-                "height": "120px",
-                "font-size": "40px",
-                "font-weight": "bold",
-                "shape": "ellipse",
-            }
-        },
-        {
-            selector: "edge[label]",
-            style: {
-                label: "data(label)",
-                "curve-style": "bezier",
-                "target-arrow-shape": "triangle",
-                "line-color": mainColor,
-                "target-arrow-color": mainColor,
-                "font-size": 60,
-                "width": 4,
-                "arrow-scale": 4,
-            }
-        },
-        {
-            selector: 'node[final]',
-            style: {
-                "border-color": mainColor,
-                "border-width": 3,
-                "border-style": "double",
-                "background-color": "#C0E0FF",
-            }
-        },
-        {
-            selector: "node#start",
-            style: {
-                "background-color": "#d9ff8d",
-            }
-        },
-        
-    ];
     
 
     return (
-        <Paper elevation={4}>
-            <div className="p-4">
-                    <CytoscapeComponent
-                        elements={CytoscapeComponent.normalizeElements(graphData)}
-                        style={{width: "100%", height: "400px"}}
-                        zoomingEnabled={true}
-                        maxZoom={3}
-                        minZoom={0.1}
-                        autounselectify={false}
-                        boxSelectionEnabled={true}
-                        layout={layout}
-                        stylesheet={styleSheet}
-                        cy={(cy: any) => {
-                            graphRef.current = cy;
-                        }}
-                    />
-            </div>
-        </Paper>
+        <Grid container>
+            <CytoscapeComponent
+                elements={CytoscapeComponent.normalizeElements(graphData)}
+                style={{width: "100%", height: "600px"}}
+                zoomingEnabled={true}
+                maxZoom={3}
+                minZoom={0.1}
+                autounselectify={false}
+                boxSelectionEnabled={true}
+                layout={layout}
+                stylesheet={styleSheet}
+                cy={(cy: any) => {
+                    graphRef.current = cy;
+                }}
+            />
+        </Grid>
     );
-}
+};
 
 export default AutomatonGraph;
