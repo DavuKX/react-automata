@@ -15,7 +15,7 @@ import {useTranslation} from 'react-i18next';
 import '@/i18n';
 import ValidateSection from "@/components/validateSection/validateSection";
 import FormControl from '@mui/material/FormControl';
-import {AutomatonTypeContext} from "@/Contexts/automatonTypeContext";
+import {AutomatonTypeContext} from "@/contexts/automatonTypeContext";
 import {AutomatonTypes} from "@/types/automaton";
 import {validationResultType} from "@/types/validationResultType";
 
