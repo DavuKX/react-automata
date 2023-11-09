@@ -136,6 +136,34 @@ export const pushdownAutomatonGraphData = {
     ]
 }
 
+export const turingMachineGraphData = {
+    nodes: [
+        {data: {id: "start", label: "start"}},
+        {data: {id: "q1", label: "q1"}},
+        {data: {id: "q2", label: "q2"}},
+        {data: {id: "q3", label: "q3", final: "true"}}
+    ],
+    edges: [
+        {
+            data: {source: "start", target: "q1", label: ""}
+        },
+        {
+            data: {source: "q1", target: "q1", label: "a/a/R"}
+        },
+        {
+            data: {source: "q1", target: "q1", label: "b/a/R"}
+        },
+        {
+            data: {source: "q1", target: "q2", label: "λ/λ/L"}
+        },
+        {
+            data: {source: "q2", target: "q2", label: "a/a/L"}
+        },
+        {
+            data: {source: "q2", target: "q3", label: "λ/λ/R"}
+        }
+    ]
+}
 
 export const finiteAutomaton: Automaton = {
     states: ['start', 'q0', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13'],
