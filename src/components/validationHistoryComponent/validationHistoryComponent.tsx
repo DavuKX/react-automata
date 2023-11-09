@@ -1,4 +1,4 @@
-import {List, ListItem, Paper, Typography} from "@mui/material";
+import {List, ListItem, Typography} from "@mui/material";
 import React from "react";
 import {ValidationEntry} from "@/Interfaces/validationEntry";
 import {useTranslation} from "react-i18next";
@@ -13,7 +13,10 @@ export function ValidationHistoryComponent({history}: ValidationHistoryProps) {
     return (
         <>
             <Typography fontSize={18} fontWeight={"bold"}>{t('validationHistory')}</Typography>
-            <List>
+            <List sx={{
+                overflow: 'auto',
+                height: 'calc(100vh - 520px)',
+            }}>
                 {history.map((entry, index) => (
                     <ListItem key={index} className={t(entry.result) === t('reject') ? "bg-red-400" : "bg-green-400"}>
                         <strong className="pr-1">{entry.word}</strong> - {t(entry.result)}

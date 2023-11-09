@@ -1,5 +1,5 @@
 "use client"
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 // @ts-ignore
 import CytoscapeComponent from "react-cytoscapejs";
 import {layout, mainColor, secondaryColor, styleSheet} from "@/components/automatonGraph/graphStyles";
@@ -14,17 +14,11 @@ interface AutomatonGraphProps {
     automatonSpeed: number;
 }
 
-interface AnimatedStackProps {
-    path: { stack: string[] }[];
-    automatonSpeed: number;
-}
-
 const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, validationResult, automatonSpeed}) => {
     const graphRef = React.useRef<any>(null);
     const getValidationSpeed = () => 500 / (automatonSpeed / 100);
     const {t} = useTranslation();
-    const [currentStack, setCurrentStack] = useState<string[]>([]);
-    
+
     useEffect(() => {
         if (validationResult.word) {
             const nodes = graphRef.current.nodes();
@@ -34,7 +28,6 @@ const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, validationRes
                 for (const state of validationResult.path) {
                     applyStylesToNodes(nodes, state.initial_state, state.final_state);
                     applyStylesToEdges(edges, state.initial_state, state.final_state, state.char, state.stack);
-                    setCurrentStack(state.stack.reverse());
 
                     await new Promise((resolve) => {
                         setTimeout(resolve, getValidationSpeed());
@@ -68,14 +61,11 @@ const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, validationRes
         });
     };
 
-    const applyStylesToEdges = (edges: any, initialState: string, finalState: string, char: string, stack:Array<string> ) => {
+    const applyStylesToEdges = (edges: any, initialState: string, finalState: string, char: string, stack: Array<string>) => {
         edges.forEach((edge: any) => {
-            const sourceNode = edge.source();
-            const targetNode = edge.target();
-
             if (
-                ( edge.data().source === initialState && edge.data().target === finalState 
-                && (char === edge.data().label[0] || char === null && edge.data().label[0] === "λ" && stack[stack.length - 1] === edge.data().label[2])
+                (edge.data().source === initialState && edge.data().target === finalState
+                    && (char === edge.data().label.toLowerCase())
                 )
             ) {
                 edge.style({
@@ -90,7 +80,7 @@ const AutomatonGraph: React.FC<AutomatonGraphProps> = ({graphData, validationRes
             }
         });
     };
-    
+
 
     return (
         <Grid container>
