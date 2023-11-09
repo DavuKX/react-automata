@@ -1,5 +1,6 @@
 import {Automaton} from "@/types/automaton";
-import { AutomatonPushDown } from "@/types/automaton";
+import {AutomatonPushDown} from "@/types/automaton";
+import {turingMachine} from "@/types/automaton";
 
 export const finiteAutomatonGraphData = {
     nodes: [
@@ -207,4 +208,16 @@ export const pushdownAutomaton: AutomatonPushDown = {
     },    
     initialState: 'p',
     acceptanceStates: ['r'],
+};
+
+export const machineTuring: turingMachine = {
+    states: ['start', 'q1', 'q2', 'q3'],
+    alphabet: ['a', 'b'],
+    transitions: {
+        q1: { a: 'q1', b: 'q1', λ: 'q1' },
+        q2: { a: 'q3', b: 'q2', λ: 'q2' },
+        q3: { a: 'q3', b: 'q3', λ: 'q3' },
+    },
+    initialState: 'q1',
+    acceptanceStates: ['q3'],
 };

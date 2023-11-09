@@ -12,6 +12,10 @@ export type TransitionDetail = {
     push_symbols: string[];
 };
 
+type TransitionTuring = {
+    [char: string]: string;
+};
+
 export type Automaton = {
     states: string[];
     alphabet: string[];
@@ -32,4 +36,14 @@ export type AutomatonPushDown = {
     acceptanceStates: string[];
 };
 
-export type AutomatonTypes = 'finite' | 'pushdown';
+export type turingMachine = {
+    states: string[];
+    alphabet: string[];
+    transitions: {
+        [key: string]: TransitionTuring;
+    };
+    initialState: string;
+    acceptanceStates: string[];
+};
+
+export type AutomatonTypes = 'finite' | 'pushdown' | 'turing';
