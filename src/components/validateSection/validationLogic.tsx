@@ -1,5 +1,5 @@
 import {useContext} from 'react';
-import {finiteAutomaton, pushdownAutomaton} from "@/constans";
+import {finiteAutomaton, machineTuring, pushdownAutomaton} from "@/constans";
 import {validationResultType} from "@/types/validationResultType";
 import { useCookies } from 'next-client-cookies';
 import {AutomatonTypeContext} from "@/contexts/automatonTypeContext";
@@ -7,6 +7,7 @@ import {AutomatonTypeContext} from "@/contexts/automatonTypeContext";
 const automatonGraphData ={
     finite: finiteAutomaton,
     pushdown: pushdownAutomaton,
+    turing: machineTuring
 }
 
 export const useValidationLogic = () => {
