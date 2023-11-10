@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Grid from '@mui/material/Grid';
 import AutomatonGraph from "@/components/automatonGraph/automatonGraph";
-import {finiteAutomatonGraphData, pushdownAutomatonGraphData} from "@/constans";
+import {finiteAutomatonGraphData, pushdownAutomatonGraphData, turingMachineGraphData} from "@/constans";
 import ToolsSection from "@/components/toolsSection/toolsSection";
 import {ValidationHistoryComponent} from "@/components/validationHistoryComponent/validationHistoryComponent";
 import {validationResultType} from "@/types/validationResultType";
@@ -13,7 +13,8 @@ import {Box, Paper} from "@mui/material";
 
 const automatonGraphData = {
     finite: finiteAutomatonGraphData,
-    pushdown: pushdownAutomatonGraphData
+    pushdown: pushdownAutomatonGraphData,
+    turing: turingMachineGraphData
 }
 
 export default function Home(): JSX.Element {
