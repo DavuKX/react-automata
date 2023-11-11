@@ -2,10 +2,11 @@ import './globals.css'
 import type {Metadata} from 'next'
 import {Inter} from 'next/font/google'
 import Footer from "@/components/footer/footer";
-import NavBar from "@/components/navBar/navBar";
 import React from "react";
+import dynamic from "next/dynamic";
 
 const inter = Inter({subsets: ['latin']})
+const NavBarNoSSR = dynamic(() => import('@/components/navBar/navBar'), {ssr: false})
 
 export const metadata: Metadata = {
     title: 'Automaton',
@@ -20,7 +21,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={inter.className}>
-                <NavBar/>
+                <NavBarNoSSR/>
                 {children}
                 <Footer/>
             </body>
